@@ -2,34 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="common/header :: head"></head>
-	
-	<!-- Add additional custom css here - START -->
-	
-	
-	<!-- Add additional custom css here - END -->
-
+	<!-- Add additional custom css here -->
 </head>
-
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <div th:replace="common/header :: top-navigation">...</div>
 
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Pesage Opérateur</h1>
+                    <h1 class="page-header">Pesage Op�rateur</h1>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Veuillez ajouter un nouveau pesé
+                            Veuillez ajouter un nouveau pes�
                         </div>
                         <div class="panel-body">
                             <form role="form" class="form-horizontal">
@@ -39,21 +30,18 @@
                                         <input id="vehicule" class="form-control" placeholder="Véhicule">
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="productName">Nom du produit:</label>
                                     <div class="col-sm-8">
                                         <input id="productName" class="form-control" placeholder="Nom du produit">
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="clientName">Nom du client/fournisseur:</label>
                                     <div class="col-sm-8">
                                         <input id="clientName" class="form-control" placeholder="Nom du client/fournisseur">
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="numberBL">N° BL:</label>
                                     <div class="col-sm-8">
@@ -61,11 +49,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">        
-                                <div class="col-sm-offset-4 col-sm-8">
-                                        <button type="submit" class="btn btn-success text-right">Enregistrer</button>
+	                                <div class="col-sm-offset-4 col-sm-8">
+	                                        <button type="submit" class="btn btn-success text-right">Enregistrer</button>
+	                                </div>
                                 </div>
-                                </div>
-                                
                             </form>
                             <!-- /. form -->
                         </div>
@@ -227,27 +214,8 @@
             </div>
         </div>
         <!-- /#page-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="../vendor/raphael/raphael.min.js"></script>
-    <script src="../vendor/morrisjs/morris.min.js"></script>
-    <script src="../data/morris-data.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-
+    <div th:replace="common/scripts :: common">...</div>
 </body>
 
 </html>
