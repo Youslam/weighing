@@ -1,4 +1,4 @@
-package com.smart.app.weighing.config;
+package com.smart.app.weighing.auth.config;
 
 import java.io.IOException;
 

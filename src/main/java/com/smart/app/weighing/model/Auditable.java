@@ -16,8 +16,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter(AccessLevel.PUBLIC)
-@Getter(AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
+@Getter(value = AccessLevel.PUBLIC)
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class Auditable<U> extends Identifier {

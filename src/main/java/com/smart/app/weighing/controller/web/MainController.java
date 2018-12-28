@@ -11,7 +11,7 @@ public class MainController {
 	@Value("${application.title}")
 	private String applicationTitle;
 	
-	@RequestMapping("/")
+	@RequestMapping("/home")
 	public String home(Model model) {
 		model.addAttribute("applicationTitle", applicationTitle);
 		return "index";

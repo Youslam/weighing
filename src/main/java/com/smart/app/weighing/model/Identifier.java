@@ -12,8 +12,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @MappedSuperclass
-@Setter(AccessLevel.PUBLIC)
-@Getter(AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
+@Getter(value = AccessLevel.PUBLIC)
 public class Identifier implements Serializable {
 
 	private static final long serialVersionUID = 6285840895043764248L;

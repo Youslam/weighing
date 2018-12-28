@@ -18,8 +18,8 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@Setter(AccessLevel.PUBLIC)
-@Getter(AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
+@Getter(value = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "role")
 public class Role {
