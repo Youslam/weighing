@@ -15,18 +15,17 @@ import lombok.ToString;
 @Setter(value = AccessLevel.PUBLIC)
 @Getter(value = AccessLevel.PUBLIC)
 @Entity
-@Table(name = "vehicle")
-public class Vehicle extends Auditable<String>{
+@Table(name = "supplier")
+public class Supplier extends Auditable<String>{
 
-	private static final long serialVersionUID = 49023855177490480L;
+	private static final long serialVersionUID = 6188448428410086535L;
 
-	@Column(name = "matricule", nullable = false)
-	private String matricule;
+	@Column(name = "name", nullable = false)
+	private String name;
 	
-	@Column(name = "brand", nullable = true)
-	private String brand;
+	@Column(name = "city", nullable = true)
+	private String city;
 	
-	@Column(name = "model", nullable = true)
-	private String model;
-	
+	@Column(name = "country", nullable = true)
+	private String country;
 }
