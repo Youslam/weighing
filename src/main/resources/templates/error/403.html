@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+	<!-- Add additional custom css here -->
+</head>
+<body>
+	<div class="container">
+    <div class="starter-template">
+        <h1>403 - Access is denied</h1>
+        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]', 
+                you do not have permission to access this page.</div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<div th:replace="common/scripts :: scripts">...</div>
+
+</body>
+</html>
