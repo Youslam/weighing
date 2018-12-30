@@ -1,17 +1,15 @@
 package com.smart.app.weighing.config;
 
-import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -19,12 +17,13 @@ import org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class DaoConfig {
 	
     private static final String PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE = "hibernate.jdbc.batch_size";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_HIBERNATE_FMT_SQL = "hibernate.format_sql";
-    private static final String[] ENTITYMANAGER_PACKAGES_TO_SCAN = {"com.smart.app.weighing"};
+    private static final String[] ENTITYMANAGER_PACKAGES_TO_SCAN = {"com.smart.app.weighing.dao"};
     
     private static final String DB_URL = "db.url";
     private static final String DB_USER = "db.user";
@@ -46,37 +45,16 @@ public class DaoConfig {
                 .build();
         return dataSource;
     }
-    
-//	@Bean(destroyMethod = "close")
-//	@Primary
-//	public DataSource dataSource() {
-//		DataSource dataSource = new DataSourceAutoConfiguration();
-//		try {
-//			dataSource.setDriverClass(env.getProperty(DB_DRIVER));
-//			
-//		} catch (PropertyVetoException e) {
-//			e.printStackTrace();
-//		}
-//		dataSource.setJdbcUrl(env.getProperty(DB_URL));
-//		dataSource.setUser(env.getProperty(DB_USER));
-//		dataSource.setPassword(env.getProperty(DB_PASSWORD));
-//		dataSource.setAcquireIncrement(5);
-//		dataSource.setMaxStatementsPerConnection(20);
-//		dataSource.setMaxStatements(100);
-//		dataSource.setMaxPoolSize(500);
-//		dataSource.setMinPoolSize(5);
-//		return dataSource;
-//	}
 
 	@Bean
 	public JpaTransactionManager jpaTransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
+		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
 	}
 
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setJpaVendorAdapter(vendorAdaptor());
 		entityManagerFactoryBean.setDataSource(getDataSource());

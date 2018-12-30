@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Setter(value = AccessLevel.PUBLIC)
 @Getter(value = AccessLevel.PUBLIC)
 @Entity
