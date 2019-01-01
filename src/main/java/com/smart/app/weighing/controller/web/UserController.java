@@ -54,7 +54,7 @@ public class UserController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
 
-        return "pages/login";
+        return "login";
     }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)

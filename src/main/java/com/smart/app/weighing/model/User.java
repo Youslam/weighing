@@ -34,6 +34,9 @@ public class User extends Auditable<String> {
 	@Column(name = "email", nullable = true)
 	private String email;
 	
+	@Column(name = "Enabled", length = 1, nullable = false)
+	private boolean enabled;
+	
 	@Column(name = "password", nullable = false)
 	private String password;
 	@Transient
