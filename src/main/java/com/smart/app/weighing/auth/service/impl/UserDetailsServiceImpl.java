@@ -23,11 +23,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	UserRepository userRepository;
 	
 	@Override
-	@Transactional(readOnly=true)
+	
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		User user = userRepository.findByLogin(login);
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		for (Role role : user.getRoles()){
+		Set<Role> roleNames = user.getRoles();
+		for (Role role : roleNames){
 	        grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
 	    }
 
