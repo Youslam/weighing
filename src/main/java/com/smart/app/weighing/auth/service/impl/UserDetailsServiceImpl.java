@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.smart.app.weighing.auth.service.UserService;
 import com.smart.app.weighing.dao.UserRepository;
 import com.smart.app.weighing.model.Role;
 import com.smart.app.weighing.model.User;
@@ -22,10 +23,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired
 	UserRepository userRepository;
 	
-	@Override
+	@Autowired
+	UserService userService;
 	
+	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-		User user = userRepository.findByLogin(login);
+		User user = userService.findByLogin(login);
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		Set<Role> roleNames = user.getRoles();
 		for (Role role : roleNames){
