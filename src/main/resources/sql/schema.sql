@@ -1,66 +1,66 @@
--- Create table
-create table `user`
+-- create table
+create table user
 (
-  ID         	BIGINT not null,
-  LOGIN         VARCHAR(36) not null,
-  EMAIL         VARCHAR(50) not null,
-  NAME         	VARCHAR(36) not null,
-  PASSWORD 		VARCHAR(128) not null,
-  ENABLED       BIT not null 
+  id         	bigint not null,
+  login         varchar(36) not null,
+  email         varchar(50) not null,
+  name         	varchar(36) not null,
+  password 		varchar(128) not null,
+  enabled       bit not null 
 ) ;
 --  
-alter table USER
-  add constraint USER_PK primary key (ID);
+alter table user
+  add constraint user_pk primary key (id);
  
-alter table USER
-  add constraint USER_UK unique (LOGIN);
+alter table user
+  add constraint user_uk unique (login);
  
  
--- Create table
-create table ROLE
+-- create table
+create table role
 (
-  ID   BIGINT not null,
-  NAME VARCHAR(30) not null
+  id   bigint not null,
+  name varchar(30) not null
 );
 --  
-alter table ROLE
-  add constraint ROLE_PK primary key (ID);
+alter table role
+  add constraint role_pk primary key (id);
  
-alter table ROLE
-  add constraint ROLE_UK unique (NAME);
+alter table role
+  add constraint role_uk unique (name);
  
  
--- Create table
-create table USER_ROLE
+-- create table
+create table user_role
 (
-  ID      BIGINT not null,
-  USER_ID BIGINT not null,
-  ROLE_ID BIGINT not null
+  id      bigint not null,
+  user_id bigint not null,
+  role_id bigint not null
 );
 --  
-alter table USER_ROLE
-  add constraint USER_ROLE_PK primary key (ID);
+alter table user_role
+  add constraint user_role_pk primary key (id);
  
-alter table USER_ROLE
-  add constraint USER_ROLE_UK unique (USER_ID, ROLE_ID);
+alter table user_role
+  add constraint user_role_uk unique (user_id, role_id);
  
-alter table USER_ROLE
-  add constraint USER_ROLE_FK1 foreign key (USER_ID)
-  references USER (ID);
+alter table user_role
+  add constraint user_role_fk1 foreign key (user_id)
+  references user (id);
  
-alter table USER_ROLE
-  add constraint USER_ROLE_FK2 foreign key (ROLE_ID)
-  references ROLE (ID);
+alter table user_role
+  add constraint user_role_fk2 foreign key (role_id)
+  references role (id);
  
  
--- Used by Spring Remember Me API.  
-CREATE TABLE Persistent_Logins (
+-- used by spring remember me api.  
+create table persistent_logins (
  
     username varchar(64) not null,
     series varchar(64) not null,
     token varchar(64) not null,
     last_used timestamp not null,
-    PRIMARY KEY (series)
+    primary key (series)
      
 );
  
