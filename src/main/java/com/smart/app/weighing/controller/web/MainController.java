@@ -1,5 +1,7 @@
 package com.smart.app.weighing.controller.web;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,7 @@ public class MainController {
 		return "index";
 	}
 	
-	@RequestMapping("/pages/home")
+	@RequestMapping("/page/home")
 	public String index(Model model) {
 		model.addAttribute("applicationTitle", applicationTitle);
 		return "pages/home";
@@ -28,4 +30,12 @@ public class MainController {
     public String error403() {
         return "/error/403";
     }
+	
+	@GetMapping("/page/history")
+	public String historique(Model model) {
+		
+		model.addAttribute("histories", Collections.EMPTY_LIST);
+		model.addAttribute("actionName", "historique");
+		return "pages/historique";
+	}
 }
