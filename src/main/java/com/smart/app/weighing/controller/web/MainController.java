@@ -38,4 +38,32 @@ public class MainController {
 		model.addAttribute("actionName", "historique");
 		return "pages/historique";
 	}
+	
+	@GetMapping("/page/product")
+	public String productList(Model model) {
+		model.addAttribute("productList", Collections.EMPTY_LIST);
+		model.addAttribute("actionName", "products");
+		return "pages/produit";
+	}
+	
+	@GetMapping("/page/vehicle")
+	public String vehicleList(Model model) {
+		model.addAttribute("vehicleList", Collections.EMPTY_LIST);
+		model.addAttribute("actionName", "vehicles");
+		return "pages/vehicule";
+	}
+	
+	@GetMapping("/page/client")
+	public String clientList(Model model) {
+		model.addAttribute("clientList", Collections.EMPTY_LIST);
+		model.addAttribute("actionName", "clients");
+		return "pages/client";
+	}
+	
+	@GetMapping("/page/delivry")
+	public String delivryList(Model model) {
+		model.addAttribute("delivryList", Collections.EMPTY_LIST);
+		model.addAttribute("actionName", "delivries");
+		return "pages/fournisseur";
+	}
 }

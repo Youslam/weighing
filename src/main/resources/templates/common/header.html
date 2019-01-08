@@ -53,23 +53,23 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li th:class="${actionName == 'pesage'} ? 'active' : ''" >
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Pesage Operateur</a>
+                        <li th:class="${actionName == 'home'} ? 'active' : ''" >
+                            <a href="../page/home"><i class="fa fa-dashboard fa-fw"></i> Pesage Operateur</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Réferentiel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li th:class="${actionName == 'vehicule'} ? 'active' : ''" >
-                                    <a href="vehicule.html">Vehicule</a>
+                                <li th:class="${actionName == 'vehicules'} ? 'active' : ''" >
+                                    <a href="../page/vehicle">Vehicule</a>
                                 </li>
-                                <li th:class="${actionName == 'client'} ? 'active' : ''" >
-                                    <a href="client.html">Client</a>
+                                <li th:class="${actionName == 'clients'} ? 'active' : ''" >
+                                    <a href="../page/client">Client</a>
                                 </li>
-								<li th:class="${actionName == 'fournisseur'} ? 'active' : ''" >
-                                    <a href="fournisseur.html">Fournisseur</a>
+								<li th:class="${actionName == 'delivries'} ? 'active' : ''" >
+                                    <a href="../page/delivry">Fournisseur</a>
                                 </li>
-                                <li th:class="${actionName == 'produit'} ? 'active' : ''" >
-                                    <a href="produit.html">Produit</a>
+                                <li th:class="${actionName == 'products'} ? 'active' : ''" >
+                                    <a href="../page/product">Produit</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
