@@ -42,10 +42,10 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i><span th:text="#{header.user.profile}"></span></a></li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i><span th:text="#{header.settings}"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i><span th:text="#{header.logout}"></span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -54,28 +54,28 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li th:class="${actionName == 'home'} ? 'active' : ''" >
-                            <a href="../page/home"><i class="fa fa-dashboard fa-fw"></i> Pesage Operateur</a>
+                            <a href="../page/home"><i class="fa fa-dashboard fa-fw"></i><span th:text="#{header.menu.home}"></span></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Réferentiel<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i><span th:text="#{header.menu.ref}"></span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li th:class="${actionName == 'vehicules'} ? 'active' : ''" >
-                                    <a href="../page/vehicle">Vehicule</a>
+                                    <a href="../page/vehicle"><span th:text="#{header.menu.vehicle}"></span></a>
                                 </li>
                                 <li th:class="${actionName == 'clients'} ? 'active' : ''" >
-                                    <a href="../page/client">Client</a>
+                                    <a href="../page/client"><span th:text="#{header.menu.client}"></span></a>
                                 </li>
 								<li th:class="${actionName == 'delivries'} ? 'active' : ''" >
-                                    <a href="../page/delivry">Fournisseur</a>
+                                    <a href="../page/delivry"><span th:text="#{header.menu.delivry}"></span></a>
                                 </li>
                                 <li th:class="${actionName == 'products'} ? 'active' : ''" >
-                                    <a href="../page/product">Produit</a>
+                                    <a href="../page/product"><span th:text="#{header.menu.product}"></span></a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
 						 <li th:class="${actionName == 'historique'} ? 'active' : ''" >
-                            <a href="../page/history"><i class="fa fa-bar-chart-o fa-fw"></i> Historique</a>
+                            <a href="../page/history"><i class="fa fa-bar-chart-o fa-fw"></i> <span th:text="#{header.menu.history}"></span></a>
                         </li>
                     </ul>
                 </div>
