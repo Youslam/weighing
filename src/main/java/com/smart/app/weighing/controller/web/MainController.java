@@ -60,10 +60,10 @@ public class MainController {
 		return "pages/client";
 	}
 	
-	@GetMapping("/page/delivry")
+	@GetMapping("/page/supplier")
 	public String delivryList(Model model) {
-		model.addAttribute("delivryList", Collections.EMPTY_LIST);
-		model.addAttribute("actionName", "delivries");
+		model.addAttribute("supplierList", Collections.EMPTY_LIST);
+		model.addAttribute("actionName", "suppliers");
 		return "pages/fournisseur";
 	}
 }
