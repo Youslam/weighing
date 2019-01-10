@@ -17,11 +17,11 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Historique</h2>
+							<h2 th:text="#{history.page.header}"></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-warning" data-toggle="modal"><i class="material-icons">assignment</i> <span>Créer un rapport détaillé</span></a>
-							<a href="#deleteEmployeeModal" class="btn btn-warning" data-toggle="modal"><i class="material-icons">assignment</i> <span>Créer un rapport</span></a>						
+							<a href="#addEmployeeModal" class="btn btn-warning" data-toggle="modal"><i class="material-icons">assignment</i> <span th:text="#{history.report.create.detail}"></span></a>
+							<a href="#deleteEmployeeModal" class="btn btn-warning" data-toggle="modal"><i class="material-icons">assignment</i> <span th:text="#{history.report.create}"></span></a>						
 						</div>
 					</div>
 				</div>
@@ -35,19 +35,19 @@
 										<label for="selectAll"></label>
 									</span>
 								</th>
-								<th>Immatriculation</th>
-								<th>Nom de produit</th>
-								<th>Nom du Porte-produit</th>
-								<th>Type du Porte-produit</th>
-								<th>Pesé entré</th>
-								<th>Pesé de sortie</th>
-								<th>Date de pesé</th>
-								<th>Actions</th>
+								<th th:text="#{vehicle.table.header.imm}"></th>
+								<th th:text="#{common.product.name}"></th>
+								<th th:text="#{history.table.holder.name}"></th>
+								<th th:text="#{history.table.holder.type}"></th>
+								<th th:text="#{history.table.weight.in}"></th>
+								<th th:text="#{history.table.weight.out}"></th>
+								<th th:text="#{history.table.weight.datetime}"></th>
+								<th th:text="#{common.table.header.action}"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:if="${histories.empty}">
-					            <td colspan="8"> No history Available </td>
+					            <td colspan="8"><span th:text="#{history.table.empty}"></span></td>
 					        </tr>
 					        <tr th:each="history : ${histories}">
 					        	<td>
@@ -56,15 +56,15 @@
 										<label for="checkbox1"></label>
 									</span>
 								</td>
-					            <td><span th:text="${history.matricule}"> Matricule </span></td>
-					            <td><span th:text="${history.product}"> Product </span></td>
-					            <td><span th:text="${history.client}"> Client </span></td>
-					            <td><span th:text="${history.isCLient}"> Client </span></td>
-					            <td><span th:text="${history.weightIn}"> Poids d'entré </span></td>
-					            <td><span th:text="${history.weightOut}"> Poids de sortie </span></td>
-					            <td><span th:text="${history.date_heure}"> date et heure </span></td>
+					            <td><span th:text="${history.matricule}"></span></td>
+					            <td><span th:text="${history.product}"></span></td>
+					            <td><span th:text="${history.client}"></span></td>
+					            <td><span th:text="${history.isCLient}"></span></td>
+					            <td><span th:text="${history.weightIn}"></span></td>
+					            <td><span th:text="${history.weightOut}"></span></td>
+					            <td><span th:text="${history.date_heure}"></span></td>
 					            <td>
-									<a href="#editEmployeeModal" class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Imprimer un ticket">print</i></a>
+									<a href="#editEmployeeModal" class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Imprimer un ticket"><span th:text="#{common.print}"></span></i></a>
 								</td>
 					        </tr>
 					    </tbody>

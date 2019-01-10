@@ -56,6 +56,9 @@
                         <li th:class="${actionName == 'home'} ? 'active' : ''" >
                             <a href="../page/home"><i class="fa fa-dashboard fa-fw"></i><span th:text="#{header.menu.home}"></span></a>
                         </li>
+						 <li th:class="${actionName == 'historique'} ? 'active' : ''" >
+                            <a href="../page/history"><i class="fa fa-bar-chart-o fa-fw"></i> <span th:text="#{header.menu.history}"></span></a>
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i><span th:text="#{header.menu.ref}"></span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -73,9 +76,6 @@
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
-						 <li th:class="${actionName == 'historique'} ? 'active' : ''" >
-                            <a href="../page/history"><i class="fa fa-bar-chart-o fa-fw"></i> <span th:text="#{header.menu.history}"></span></a>
                         </li>
                     </ul>
                 </div>
