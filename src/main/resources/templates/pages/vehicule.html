@@ -20,7 +20,7 @@
 						</div>
 						<div class="col-sm-6">
 							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span th:text="#{vehicle.page.add}"></span></a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span th:text="#{vehicle.page.add}"></span></a>						
+							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span th:text="#{vehicle.page.delete}"></span></a>						
 						</div>
 					</div>
 				</div>
@@ -72,7 +72,7 @@
 		<div id="addEmployeeModal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form>
+					<form action="#" th:action="@{/vehicle}" th:object="${vehicle}" method="post">
 						<div class="modal-header">						
 							<h4 class="modal-title" th:text="#{vehicle.modal.add.title}"></h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -111,8 +111,8 @@
 							</div>							
 						</div>
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="#{common.cancel}">
-							<input type="submit" class="btn btn-success" value="#{common.save}">
+							<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}" />
+							<input type="submit" class="btn btn-success" th:value="#{common.save}" />
 						</div>
 					</form>
 				</div>
@@ -161,8 +161,8 @@
 							</div>							
 						</div>					
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="#{common.cancel}">
-							<input type="submit" class="btn btn-info" value="#{common.save}">
+							<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+							<input type="submit" class="btn btn-info" th:value="#{common.save}">
 						</div>
 					</form>
 				</div>
@@ -182,8 +182,8 @@
 							<p class="text-warning"><small><span th:text="#{vehicle.modal.delete.warn}"></span></small></p>
 						</div>
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="#{common.cancel}">
-							<input type="submit" class="btn btn-danger" value="#{common.delete}">
+							<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+							<input type="submit" class="btn btn-danger" th:value="#{common.delete}">
 						</div>
 					</form>
 				</div>
