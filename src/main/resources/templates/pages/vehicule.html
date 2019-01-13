@@ -16,10 +16,10 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2 th:text="#{vehicle.page.header}">Gestion <b>V�hicule</b></h2>
+							<h2 th:text="#{vehicle.page.header}"></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span th:text="#{vehicle.page.add}"></span></a>
+							<a href="#addVehicleModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span th:text="#{vehicle.page.add}"></span></a>
 							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span th:text="#{vehicle.page.delete}"></span></a>						
 						</div>
 					</div>
@@ -42,25 +42,29 @@
 								<th th:text="#{common.table.header.action}"></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="table-body">
 							<tr th:if="${vehicleList.empty}">
 								<td colspan="6"><span th:text="#{vehicle.table.empty}"></span></td>
 							</tr>
 							<tr th:each="vehicle: ${vehicleList}">
 								<td>
 									<span class="custom-checkbox">
-										<input type="checkbox" id="checkbox1" name="options[]" value="${vehicle.id}">
+										<input type="checkbox" id="checkbox1" name="options[]" th:value="${vehicle.id}">
 										<label for="checkbox1"></label>
 									</span>
 								</td>
 								<td><span th:text="${vehicle.matricule}"></span></td>
 								<td><span th:text="${vehicle.type}"></span></td>
-								<td><span th:text="${vehicle.marque}"></span></td>
+								<td><span th:text="${vehicle.brand}"></span></td>
 								<td><span th:text="${vehicle.model}"></span></td>
-								<td><span th:text="${vehicle.maxLoad}"></span></td>
+								<td><span th:text="${vehicle.maxload}"></span></td>
 								<td>
-									<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+									<a data-toggle="modal" data-target="#umodal"th:onclick="'showEditModal(' + ${vehicle.id} + ')'" class="edit">
+										<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+									</a>
+									<a data-toggle='modal' data-target='#dmodal' th:onclick="'showDeleteModal(' + ${vehicle.id} + ')'" class="delete">
+										<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+									</a>
 								</td>
 							</tr>
 						</tbody>
@@ -69,10 +73,10 @@
 			</div>
 		</div>
 		<!-- Edit Modal HTML -->
-		<div id="addEmployeeModal" class="modal fade">
+		<div id="addVehicleModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form action="#" th:action="@{/vehicle}" th:object="${vehicle}" method="post">
+					<form action="#" th:action="@{/vehicle/add}" th:object="${vehicle}" method="post">
 						<div class="modal-header">						
 							<h4 class="modal-title" th:text="#{vehicle.modal.add.title}"></h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -80,34 +84,33 @@
 						<div class="modal-body">					
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.imm}"></label>
-								<input type="text" class="form-control" required>
+								<input type="text" class="form-control" th:field="*{matricule}" id="matricule" required>
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.type}"></label>
-								<select class="form-control" required>
-									<option>Camion</option>
-									<option>V�hicule</option>
-									<option>Mini-camion</option>
-									<option>etc...</option>
+								<select class="form-control" th:field="*{type}" id="type" required>
+									<option value="camion">Camion</option>
+									<option value="vehicle">Véhicule</option>
+									<option value="mini-camion">Mini-camion</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.brand}"></label>
-								<select class="form-control" required>
-									<option>Mercedes</option>
-									<option>MAN</option>
-									<option>Volvo</option>
-									<option>Renault</option>
-									<option>etc...</option>
+								<select class="form-control" th:field="*{brand}" id="brand" required>
+									<option value="mercedes">Mercedes</option>
+									<option value="man">MAN</option>
+									<option value="volvo">Volvo</option>
+									<option value="renault">Renault</option>
+									<option value="scania">Scania</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.model}"></label>
-								<input type="text" class="form-control" required>
+								<input type="text" class="form-control" th:field="*{model}" id="model" required>
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.maxload}"></label>
-								<input type="text" class="form-control" required>
+								<input type="text" class="form-control" th:field="*{maxload}" id="maxload" required>
 							</div>							
 						</div>
 						<div class="modal-footer">
@@ -119,45 +122,47 @@
 			</div>
 		</div>
 		<!-- Edit Modal HTML -->
-		<div id="editEmployeeModal" class="modal fade">
+		<div th:id="umodal" class="modal fade" tabindex="-1" role="dialog" >
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form>
+					<form id="edit-form" action="#" th:action="@{/vehicle/update}" th:object="${vehicle}" th:method="post">
 						<div class="modal-header">						
 							<h4 class="modal-title" th:text="#{vehicle.modal.edit.title}"></h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">					
+							<input id="update-id" type="hidden" th:field="*{id}" th:value="${vehicle.id}"/>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.imm}"></label>
-								<input type="text" class="form-control" value="1234-A-1" required>
+								<input type="text" class="form-control" th:value="${vehicle.matricule}" th:field="*{matricule}" id="matricule" required>
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.type}"></label>
-								<select class="form-control" required>
-									<option selected>Camion</option>
-									<option>V�hicule</option>
-									<option>Mini-camion</option>
-									<option>etc...</option>
+								<select class="form-control" th:value="${vehicle.type}" th:field="*{type}" id="type" required>
+									<option value="camion">Camion</option>
+									<option value="vehicle">Véhicule</option>
+									<option value="mini-camion">Mini-camion</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.brand}"></label>
-								<select class="form-control" required>
-									<option>Mercedes</option>
-									<option>MAN</option>
-									<option selected>Volvo</option>
-									<option>Renault</option>
-									<option>etc...</option>
+								<select class="form-control" th:value="${vehicle.brand}" th:field="*{brand}" id="brand">
+									<option value="mercedes">Mercedes</option>
+									<option value="man">MAN</option>
+									<option value="volvo">Volvo</option>
+									<option value="renault">Renault</option>
+									<option value="scania">Scania</option>
 								</select>
+<!-- 								<span th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span> -->
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.model}"></label>
-								<input type="text" class="form-control" value="T344" required>
+								<input type="text" class="form-control" th:value="${vehicle.model}" th:field="*{model}" id="model">
 							</div>
 							<div class="form-group">
 								<label th:text="#{vehicle.table.header.maxload}"></label>
-								<input type="text" class="form-control" value="240 T" required>
+								<input type="text" class="form-control" th:value="${vehicle.maxload}" th:field="*{maxload}" id="maxload" required>
+<!-- 								<span th:if="${#fields.hasErrors('maxload')}" th:errors="*{maxload}"></span> -->
 							</div>							
 						</div>					
 						<div class="modal-footer">
@@ -169,7 +174,7 @@
 			</div>
 		</div>
 		<!-- Delete Modal HTML -->
-		<div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal modal-warning fade in" th:id="modal-warning+${vehicle.id }">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form>
@@ -183,7 +188,8 @@
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
-							<input type="submit" class="btn btn-danger" th:value="#{common.delete}">
+<!-- 							<input type="submit" class="btn btn-danger" th:value="#{common.delete}"> -->
+							<a type="button" class="btn btn-outline" th:href="@{/vehicle/delete/{id}(id=${vehicle.id})}"><i class="fa fa-check"></i><span th:text="#{common.delete}"></span></a>
 						</div>
 					</form>
 				</div>
@@ -194,32 +200,38 @@
   	<div th:replace="common/scripts :: scripts">...</div>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+	<script th:src="@{/js/ajax.js}"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		// Activate tooltip
-		$('[data-toggle="tooltip"]').tooltip();
-		
-		// Select/Deselect checkboxes
-		var checkbox = $('table tbody input[type="checkbox"]');
-		$("#selectAll").click(function(){
-			if(this.checked){
-				checkbox.each(function(){
-					this.checked = true;                        
-				});
-			} else{
-				checkbox.each(function(){
-					this.checked = false;                        
-				});
-			} 
+		$(document).ready(function(){
+			// Activate tooltip
+			$('[data-toggle="tooltip"]').tooltip();
+			
+			// Select/Deselect checkboxes
+			var checkbox = $('table tbody input[type="checkbox"]');
+			$("#selectAll").click(function(){
+				if(this.checked){
+					checkbox.each(function(){
+						this.checked = true;                        
+					});
+				} else{
+					checkbox.each(function(){
+						this.checked = false;                        
+					});
+				} 
+			});
+			checkbox.click(function(){
+				if(!this.checked){
+					$("#selectAll").prop("checked", false);
+				}
+			});
+			
+		    $('table#vehicle-list').DataTable();
+		    
+		    $("#edit-form").submit(function (event) {
+	            event.preventDefault();
+	            postEdit();
+	        });
 		});
-		checkbox.click(function(){
-			if(!this.checked){
-				$("#selectAll").prop("checked", false);
-			}
-		});
-		
-	    $('table#vehicle-list').DataTable();
-	});
 	</script>
 </body>
 </html>                                		                            

@@ -54,25 +54,25 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li th:class="${actionName == 'home'} ? 'active' : ''" >
-                            <a href="../page/home"><i class="fa fa-dashboard fa-fw"></i><span th:text="#{header.menu.home}"></span></a>
+                            <a href="../home/page"><i class="fa fa-dashboard fa-fw"></i><span th:text="#{header.menu.home}"></span></a>
                         </li>
 						 <li th:class="${actionName == 'historique'} ? 'active' : ''" >
-                            <a href="../page/history"><i class="fa fa-bar-chart-o fa-fw"></i> <span th:text="#{header.menu.history}"></span></a>
+                            <a href="../history/page"><i class="fa fa-bar-chart-o fa-fw"></i> <span th:text="#{header.menu.history}"></span></a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i><span th:text="#{header.menu.ref}"></span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li th:class="${actionName == 'vehicules'} ? 'active' : ''" >
-                                    <a href="../page/vehicle"><span th:text="#{header.menu.vehicle}"></span></a>
+                                    <a href="../vehicle/page"><span th:text="#{header.menu.vehicle}"></span></a>
                                 </li>
                                 <li th:class="${actionName == 'clients'} ? 'active' : ''" >
-                                    <a href="../page/client"><span th:text="#{header.menu.client}"></span></a>
+                                    <a href="../client/page"><span th:text="#{header.menu.client}"></span></a>
                                 </li>
 								<li th:class="${actionName == 'suppliers'} ? 'active' : ''" >
-                                    <a href="../page/supplier"><span th:text="#{header.menu.supplier}"></span></a>
+                                    <a href="../supplier/page"><span th:text="#{header.menu.supplier}"></span></a>
                                 </li>
                                 <li th:class="${actionName == 'products'} ? 'active' : ''" >
-                                    <a href="../page/product"><span th:text="#{header.menu.product}"></span></a>
+                                    <a href="../product/page"><span th:text="#{header.menu.product}"></span></a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -20,7 +20,7 @@ public class MainController {
 		return "index";
 	}
 	
-	@RequestMapping("/page/home")
+	@RequestMapping("/home/page")
 	public String index(Model model) {
 		model.addAttribute("applicationTitle", applicationTitle);
 		return "pages/home";
@@ -31,7 +31,7 @@ public class MainController {
         return "/error/403";
     }
 	
-	@GetMapping("/page/history")
+	@GetMapping("/history/page")
 	public String historique(Model model) {
 		
 		model.addAttribute("histories", Collections.EMPTY_LIST);
@@ -39,28 +39,21 @@ public class MainController {
 		return "pages/historique";
 	}
 	
-	@GetMapping("/page/product")
+	@GetMapping("/product/page")
 	public String productList(Model model) {
 		model.addAttribute("productList", Collections.EMPTY_LIST);
 		model.addAttribute("actionName", "products");
 		return "pages/produit";
 	}
 	
-	@GetMapping("/page/vehicle")
-	public String vehicleList(Model model) {
-		model.addAttribute("vehicleList", Collections.EMPTY_LIST);
-		model.addAttribute("actionName", "vehicles");
-		return "pages/vehicule";
-	}
-	
-	@GetMapping("/page/client")
+	@GetMapping("/client/page")
 	public String clientList(Model model) {
 		model.addAttribute("clientList", Collections.EMPTY_LIST);
 		model.addAttribute("actionName", "clients");
 		return "pages/client";
 	}
 	
-	@GetMapping("/page/supplier")
+	@GetMapping("/supplier/page")
 	public String delivryList(Model model) {
 		model.addAttribute("supplierList", Collections.EMPTY_LIST);
 		model.addAttribute("actionName", "suppliers");
