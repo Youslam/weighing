@@ -1,16 +1,10 @@
 package com.smart.app.weighing.controller.web;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,18 +20,6 @@ public class VehicleController {
 	@Autowired
 	private VehicleService vehicleService;
 	
-	@ResponseBody
-    @GetMapping(value = "/loadEntity/{id}")
-    public Vehicle loadEntity(@PathVariable("id") Long id) {
-        return vehicleService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Vehicle Id:" + id));
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/loadVehicleTable")
-    public List<Vehicle> loadVehicleTable() {
-        return vehicleService.findAll();
-    }
-	
 	@GetMapping("/page")
 	public String vehicleList(Model model, @RequestParam(defaultValue="0") int page) {
 		Page<Vehicle> vehicleList =  vehicleService.findAll(page);
@@ -48,27 +30,16 @@ public class VehicleController {
 		return "pages/vehicule";
 	}
 	
-	@PostMapping("/add")
-	public String addVehicle(@Valid Vehicle vehicle, BindingResult result, Model model) {
-		if(result.hasErrors()) {
-			System.err.println("Error adding vehicle");
-			return "redirect: /vehicle/page";
-		}
-		
-		vehicleService.saveOrUpdate(vehicle);
-		return "redirect: /vehicle/page";
-	}
-	
 	@PostMapping("/save")
 	public String updateVehicle(Vehicle vehicle) {
 		vehicleService.saveOrUpdate(vehicle);
-		return "redirect: /vehicle/page";
+		return "redirect:/vehicle/page";
 	}
 	
-	@GetMapping("/delete/{id}")
+	@GetMapping("/delete")
 	public String deleteVehicle(long id) {
 		vehicleService.deleteById(id);
-		return "redirect: /vehicle/page";
+		return "redirect:/vehicle/page";
 	}
 	
 	@GetMapping("/findOne")
