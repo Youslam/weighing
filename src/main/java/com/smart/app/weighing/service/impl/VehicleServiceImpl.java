@@ -1,10 +1,11 @@
 package com.smart.app.weighing.service.impl;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.smart.app.weighing.dao.VehicleRepository;
@@ -14,15 +15,18 @@ import com.smart.app.weighing.service.VehicleService;
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
+	private static final Integer PAGE_SIZE = 5;
 	@Autowired
 	VehicleRepository vehicleRepository;
 	
 	@Override
 	public List<Vehicle> findAll() {
-//		if(vehicleRepository.findAll() != null) {
-			return vehicleRepository.findAll();
-//		}
-//		return Collections.emptyList();
+		return vehicleRepository.findAll();
+	}
+	
+	@Override
+	public Page<Vehicle> findAll(int page) {
+		return vehicleRepository.findAll(PageRequest.of(page, PAGE_SIZE));
 	}
 
 	@Override

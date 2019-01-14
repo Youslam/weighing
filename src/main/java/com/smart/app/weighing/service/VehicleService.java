@@ -3,6 +3,8 @@ package com.smart.app.weighing.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
 import com.smart.app.weighing.model.Vehicle;
 
 public interface VehicleService {
@@ -37,4 +39,11 @@ public interface VehicleService {
 	 * @param vehicle
 	 */
 	void delete(Vehicle vehicle);
+
+	/**
+	 * Find all vehicles and showing by page
+	 * @param page
+	 * @return
+	 */
+	Page<Vehicle> findAll(int page);
 }

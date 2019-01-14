@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smart.app.weighing.model.Vehicle;
@@ -39,54 +41,42 @@ public class VehicleController {
     }
 	
 	@GetMapping("/page")
-	public String vehicleList(@Valid @ModelAttribute("vehicle") Vehicle vehicle, BindingResult result, Model model) {
-		model.addAttribute("vehicleList", vehicleService.findAll());
+	public String vehicleList(Model model, @RequestParam(defaultValue="0") int page) {
+		Page<Vehicle> vehicleList =  vehicleService.findAll(page);
+		model.addAttribute("vehicleList", vehicleList);
 		model.addAttribute("actionName", "vehicles");
-		model.addAttribute("vehicle", new Vehicle());
+		model.addAttribute("total", vehicleList.getSize());
+		model.addAttribute("currentPage", page);
 		return "pages/vehicule";
-	}
-	
-	@GetMapping("/edit/{id}")
-	public String editModalContents(@PathVariable("id") Long id, ModelMap modelMap) {
-		Vehicle vehicle = vehicleService.findById(id)
-			      .orElseThrow(() -> new IllegalArgumentException("Invalid Vehicle Id:" + id));
-		modelMap.addAttribute("vehicle", vehicle);
-		return "pages/vehicle::editModalContents";
 	}
 	
 	@PostMapping("/add")
 	public String addVehicle(@Valid Vehicle vehicle, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			System.err.println("Error adding vehicle");
-			return "pages/vehicule";
+			return "redirect: /vehicle/page";
 		}
 		
 		vehicleService.saveOrUpdate(vehicle);
-		model.addAttribute("vehicleList", vehicleService.findAll());
-		model.addAttribute("actionName", "vehicles");
-		return "pages/vehicule";
+		return "redirect: /vehicle/page";
 	}
 	
-	@PostMapping("/update/{id}")
-	public String updateVehicle(@PathVariable("id") Long id, @Valid Vehicle vehicle, BindingResult result, Model model) {
-		if(result.hasErrors()) {
-			vehicle.setId(id);
-	        return "update-user";
-		}
-		
+	@PostMapping("/save")
+	public String updateVehicle(Vehicle vehicle) {
 		vehicleService.saveOrUpdate(vehicle);
-		model.addAttribute("vehicleList", vehicleService.findAll());
-		model.addAttribute("actionName", "vehicles");
-		return "pages/vehicule";
+		return "redirect: /vehicle/page";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deleteUser(@PathVariable("id") long id, Model model) {
-		Vehicle vehicle = vehicleService.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid Vehicle Id:" + id));
-		vehicleService.delete(vehicle);
-	    model.addAttribute("vehicleList", vehicleService.findAll());
-	    model.addAttribute("actionName", "vehicles");
-	    return "pages/vehicule";
+	public String deleteVehicle(long id) {
+		vehicleService.deleteById(id);
+		return "redirect: /vehicle/page";
+	}
+	
+	@GetMapping("/findOne")
+	@ResponseBody
+	public Vehicle findOne(Long id) {
+		return vehicleService.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid Vehicle Id:" + id));
 	}
 }
