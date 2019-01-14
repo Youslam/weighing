@@ -46,13 +46,6 @@ public class MainController {
 		return "pages/produit";
 	}
 	
-	@GetMapping("/client/page")
-	public String clientList(Model model) {
-		model.addAttribute("clientList", Collections.EMPTY_LIST);
-		model.addAttribute("actionName", "clients");
-		return "pages/client";
-	}
-	
 	@GetMapping("/supplier/page")
 	public String delivryList(Model model) {
 		model.addAttribute("supplierList", Collections.EMPTY_LIST);

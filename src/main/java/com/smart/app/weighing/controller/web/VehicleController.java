@@ -1,7 +1,8 @@
 package com.smart.app.weighing.controller.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +23,10 @@ public class VehicleController {
 	
 	@GetMapping("/page")
 	public String vehicleList(Model model, @RequestParam(defaultValue="0") int page) {
-		Page<Vehicle> vehicleList =  vehicleService.findAll(page);
+		List<Vehicle> vehicleList =  vehicleService.findAll();
 		model.addAttribute("vehicleList", vehicleList);
 		model.addAttribute("actionName", "vehicles");
-		model.addAttribute("total", vehicleList.getTotalPages());
+//		model.addAttribute("total", vehicleList.getTotalPages());
 		model.addAttribute("currentPage", page);
 		return "pages/vehicule";
 	}
