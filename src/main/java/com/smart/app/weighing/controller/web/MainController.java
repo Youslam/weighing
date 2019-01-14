@@ -38,18 +38,4 @@ public class MainController {
 		model.addAttribute("actionName", "historique");
 		return "pages/historique";
 	}
-	
-	@GetMapping("/product/page")
-	public String productList(Model model) {
-		model.addAttribute("productList", Collections.EMPTY_LIST);
-		model.addAttribute("actionName", "products");
-		return "pages/produit";
-	}
-	
-	@GetMapping("/supplier/page")
-	public String delivryList(Model model) {
-		model.addAttribute("supplierList", Collections.EMPTY_LIST);
-		model.addAttribute("actionName", "suppliers");
-		return "pages/fournisseur";
-	}
 }
