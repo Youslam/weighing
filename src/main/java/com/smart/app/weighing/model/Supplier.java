@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=false)
 @ToString
 @Setter(value = AccessLevel.PUBLIC)
 @Getter(value = AccessLevel.PUBLIC)
@@ -23,9 +23,15 @@ public class Supplier extends Auditable<String>{
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "city", nullable = true)
-	private String city;
+	@Column(name = "sector", nullable = true)
+	private String sector;
 	
-	@Column(name = "country", nullable = true)
-	private String country;
+	@Column(name = "email", nullable = true)
+	private String email;
+	
+	@Column(name = "phone", nullable = true)
+	private String phone;
+	
+	@Column(name = "adress", nullable = true)
+	private String adress;
 }

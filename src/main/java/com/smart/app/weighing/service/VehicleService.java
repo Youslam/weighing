@@ -46,4 +46,13 @@ public interface VehicleService {
 	 * @return
 	 */
 	Page<Vehicle> findAll(int page);
+
+	/**
+	 * Search vehicle by matricule for autocomplete field
+	 * @param term
+	 * @return
+	 */
+	List<String> searchMatricule(String term);
+
+	List<Vehicle> searchVehicle(String term);
 }

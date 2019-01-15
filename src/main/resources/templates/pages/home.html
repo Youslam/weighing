@@ -216,6 +216,25 @@
         <!-- /#page-wrapper -->
     </div>
     <div th:replace="common/scripts :: scripts">...</div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	$("#vehicule").autocomplete({
+			source: "vehicle/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.label;
+				//$("#vehicule").val(ui.item.value);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            var noResult = { value:"",label:"No results found" };
+		            ui.content.push(noResult);
+		        }
+		    }
+		});
+    });
+    </script>
 </body>
 
 </html>

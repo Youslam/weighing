@@ -6,7 +6,11 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-	
+	<style>
+	  .ui-autocomplete-loading {
+	    background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+	  }
+	  </style>
 </head>
 <body>
 	<div id="wrapper">
@@ -52,7 +56,7 @@
 					        <tr th:each="history : ${histories}">
 					        	<td>
 									<span class="custom-checkbox">
-										<input type="checkbox" id="checkbox1" name="options[]" value="${history.id}">
+										<input type="checkbox" id="checkbox1" value="${history.id}">
 										<label for="checkbox1"></label>
 									</span>
 								</td>
@@ -102,6 +106,7 @@
 		});
 		
 	    $('#example').DataTable();
+	    
 	});
 	</script>
 </body>
