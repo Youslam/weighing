@@ -19,8 +19,8 @@
 							<h2 th:text="#{supplier.page.header}"></h2>
 						</div>
 						<div class="col-sm-6">
-							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span th:text="#{supplier.page.add}"></span></a>
-							<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span th:text="#{supplier.page.delete}"></span></a>						
+							<a href="" class="btn btn-success aBtn"><i class="material-icons">&#xE147;</i> <span th:text="#{supplier.page.add}"></span></a>
+							<a href="" class="btn btn-danger" id="delSelBtn"><i class="material-icons">&#xE15C;</i> <span th:text="#{supplier.page.delete}"></span></a>						
 						</div>
 					</div>
 				</div>
@@ -42,9 +42,9 @@
 								<th th:text="#{common.table.header.action}"></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="table-body">
 							<tr th:if="${supplierList.empty}">
-								<td colspan="7">No Data Available</td>
+								<td colspan="6" style="text-align: center"><span th:text="#{supplier.table.empty}"></span></td>
 							</tr>
 							<tr th:each="supplier: ${supplierList}">
 								<td>
@@ -59,8 +59,12 @@
 								<td><span th:text="${supplier.adress}"></span></td>
 								<td><span th:text="${supplier.phone}"></span></td>
 								<td>
-									<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-									<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+									<a th:href="@{/supplier/findOne/(id=${supplier.id})}" class="edit eBtn" id="Edit">
+										<i class="material-icons" data-toggle="tooltip" title="Modifier">&#xE254;</i>
+									</a>
+									<a th:href="@{/supplier/delete/(id=${supplier.id})}" class="delete dBtn">
+										<i class="material-icons" data-toggle="tooltip" title="Supprimer">&#xE872;</i>
+									</a>
 								</td>
 							</tr>
 						</tbody>
@@ -69,67 +73,23 @@
 			</div>
 		</div>
 		<!-- Edit Modal HTML -->
-		<div id="addEmployeeModal" class="modal fade">
+		<div id="umodal" class="modal fade" tabindex="-1" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form>
-						<div class="modal-header">						
-							<h4 class="modal-title" th:text="#{supplier.modal.add.title}"></h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">					
-							<div class="form-group">
-								<label th:text="#{supplier.table.header.name}"></label>
-								<input type="text" class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label th:text="#{supplier.table.header.secteur}"></label>
-								<select class="form-control">
-									<option>Secteur 1</option>
-									<option>Secteur 2</option>
-									<option>Secteur 3</option>
-									<option>Secteur 4</option>
-									<option>Secteur 5</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label th:text="#{supplier.table.header.email}"></label>
-								<input type="email" class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label th:text="#{supplier.table.header.adress}"></label>
-								<textarea class="form-control" required></textarea>
-							</div>
-							<div class="form-group">
-								<label th:text="#{supplier.table.header.phone}"></label>
-								<input type="text" class="form-control" required>
-							</div>					
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="#{common.cancel}">
-							<input type="submit" class="btn btn-success" value="#{common.save}">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!-- Edit Modal HTML -->
-		<div id="editEmployeeModal" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form>
+					<form id="modal-form" action="#" th:action="@{/supplier/save}" th:method="post">
 						<div class="modal-header">						
 							<h4 class="modal-title" th:text="#{supplier.modal.edit.title}"></h4>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						</div>
-						<div class="modal-body">					
+						<div class="modal-body">
+                            <input type="hidden" class="form-control" name="id" id="id" >	
 							<div class="form-group">
 								<label th:text="#{supplier.table.header.name}"></label>
-								<input type="text" class="form-control" required>
+								<input type="text" class="form-control" name="name" id="name" required>
 							</div>
 							<div class="form-group">
 								<label th:text="#{supplier.table.header.secteur}"></label>
-								<select class="form-control">
+								<select class="form-control" id="sector" name="sector">
 									<option>Secteur 1</option>
 									<option>Secteur 2</option>
 									<option>Secteur 3</option>
@@ -139,27 +99,27 @@
 							</div>
 							<div class="form-group">
 								<label th:text="#{supplier.table.header.email}"></label>
-								<input type="email" class="form-control" required>
+								<input type="email" class="form-control" id="email" name="email" required>
 							</div>
 							<div class="form-group">
 								<label th:text="#{supplier.table.header.adress}"></label>
-								<textarea class="form-control" required></textarea>
+								<textarea class="form-control" id="adress" name="adress" ></textarea>
 							</div>
 							<div class="form-group">
 								<label th:text="#{supplier.table.header.phone}"></label>
-								<input type="text" class="form-control" required>
+								<input type="text" class="form-control" name="phone" id="phone" required>
 							</div>					
 						</div>
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="#{common.cancel}">
-							<input type="submit" class="btn btn-info" value="#{common.save}">
+							<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+							<input type="submit" class="btn btn-info" th:value="#{common.save}">
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!-- Delete Modal HTML -->
-		<div id="deleteEmployeeModal" class="modal fade">
+		<div id="del-modal" class="modal modal-warning fade in">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form>
@@ -171,8 +131,8 @@
 							<p th:text="#{supplier.modal.delete.confirm}"></p>
 						</div>
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="#{common.cancel}">
-							<input type="submit" class="btn btn-danger" value="#{common.delete}">
+							<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+							<a  class="btn btn-danger" href="" id="delBtn"><i class="fa fa-check"></i><span th:text="#{common.delete}"></span></a>
 						</div>
 					</form>
 				</div>
@@ -207,7 +167,51 @@
 			}
 		});
 		
-	    $('#example').DataTable();
+	    $('table#supplier-list').DataTable();
+        
+        $('.aBtn, .table .eBtn').on('click', function(event) {
+	    	event.preventDefault();
+	    	var href = $(this).attr("href");
+	    	var id = $(this).attr("id");
+	    	if(id=="Edit") {		    		
+		    	$.get(href, function(data, status) {
+		    		$("#modal-form #id").val(data.id);
+		    		$("#modal-form #name").val(data.name);
+		    		$("#modal-form #sector").val(data.sector);
+		    		$("#modal-form #email").val(data.email);
+		    		$("#modal-form #adress").val(data.adress);
+		    		$("#modal-form #phone").val(data.phone);
+		    	});
+		    	
+		    	$("#umodal").modal();
+	    	} else {
+	    		$("#modal-form #id").val('');
+	    		$("#modal-form #name").val('');
+	    		$("#modal-form #sector").val('');
+	    		$("#modal-form #email").val('');
+	    		$("#modal-form #adress").val('');
+	    		$("#modal-form #phone").val('');
+	    		
+	    		$("#umodal").modal();
+	    	}
+	    });
+	    
+	    $("#delSelBtn, .table .dBtn").on('click', function(event) {
+	    	event.preventDefault();
+	    	var href = $(this).attr("href");
+	    	if($(this).attr("id") == "delSelBtn") {
+	    		var ids = new Array();
+	    		checkbox.each(function(){
+					if(this.checked) {
+						ids.push($(this).val());
+					}                        
+				});
+	    		// TODO Must delete all selected ids
+	    	} else {
+		    	$("#del-modal #delBtn").attr("href", href);
+		    	$("#del-modal").modal();
+	    	}
+	    });
 	});
 	</script>
 </body>
