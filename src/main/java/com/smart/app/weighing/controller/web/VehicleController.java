@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smart.app.weighing.model.Vehicle;
 import com.smart.app.weighing.service.VehicleService;
@@ -45,12 +44,5 @@ public class VehicleController {
 	public String deleteVehicle(long id) {
 		vehicleService.deleteById(id);
 		return "redirect:/vehicle/page";
-	}
-	
-	@GetMapping("/findOne")
-	@ResponseBody
-	public Vehicle findOne(Long id) {
-		return vehicleService.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid Vehicle Id:" + id));
 	}
 }

@@ -35,8 +35,8 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public void saveOrUpdate(Supplier supplier) {
-		supplierRepository.save(supplier);
+	public Supplier saveOrUpdate(Supplier supplier) {
+		return supplierRepository.save(supplier);
 	}
 
 	@Override
@@ -47,6 +47,11 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public void delete(Supplier supplier) {
 		supplierRepository.delete(supplier);
+	}
+
+	@Override
+	public List<Supplier> searchSuppliers(String term) {
+		return supplierRepository.findByNameContaining(term);
 	}
 
 }

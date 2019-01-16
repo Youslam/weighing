@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void saveOrUpdate(Product product) {
-		productRepository.save(product);
+	public Product saveOrUpdate(Product product) {
+		return productRepository.save(product);
 	}
 
 	@Override
@@ -47,6 +47,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void delete(Product product) {
 		productRepository.delete(product);
+	}
+
+	@Override
+	public List<Product> searchProducts(String term) {
+		return productRepository.findByNameContaining(term);
 	}
 
 }

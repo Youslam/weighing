@@ -27,25 +27,44 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="vehicule" th:text="#{common.vehicle}"></label>
                                     <div class="col-sm-8">
-                                        <input id="vehicule" class="form-control" th:placeholder="#{common.vehicle}">
+                                        <input id="vehicule" name="matricule" class="form-control" th:placeholder="#{home.vehicle.placeholder}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="productName" th:text="#{common.product.name}"></label>
                                     <div class="col-sm-8">
-                                        <input id="productName" class="form-control" th:placeholder="#{common.product.name}">
+                                    	<input id="productId" name="productId" type="hidden">
+                                        <input id="productName" class="form-control" th:placeholder="#{home.product.name.placeholder}">
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                 	<label class="control-label col-sm-4" for="holder-type" th:text="#{home.label.holder.type}"></label>
+                                 	<div class="col-sm-8">
+										<select class="form-control" id="holder-type" name="holder-type">
+											<option value="" th:text="#{home.holder.type}"></option>
+											<option value="client" th:text="#{header.menu.client}"></option>
+											<option value="supplier" th:text="#{header.menu.supplier}"></option>
+										</select>
+									</div>
+								</div>
+                                <div class="form-group client-row" style="display:none">
                                     <label class="control-label col-sm-4" for="clientName" th:text="#{common.client.name}"></label>
                                     <div class="col-sm-8">
-                                        <input id="clientName" class="form-control" th:placeholder="#{common.client.name}">
+                                    	<input id="clientId" name="clientId" type="hidden">
+                                        <input id="clientName" class="form-control" th:placeholder="#{home.client.name.placeholder}">
+                                    </div>
+                                </div>
+                                <div class="form-group supplier-row" style="display:none">
+                                    <label class="control-label col-sm-4" for="clientName" th:text="#{common.supplier.name}"></label>
+                                    <div class="col-sm-8">
+                                    	<input id="supplierId" name="supplierId" type="hidden">
+                                        <input id="supplierName" class="form-control" th:placeholder="#{home.supplier.name.placeholder}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4" for="numberBL" th:text="#{common.bl.numero}"></label>
                                     <div class="col-sm-8">
-                                        <input id="numberBL" class="form-control" th:placeholder="#{common.bl.numero}">
+                                        <input id="numberBL" class="form-control" th:placeholder="#{home.bl.numero.placeholder}">
                                     </div>
                                 </div>
                                 <div class="form-group">        
@@ -215,24 +234,149 @@
         </div>
         <!-- /#page-wrapper -->
     </div>
+    
+    <!-- Modal for confirmation-->
+    <div th:replace="pages/modal/vehicleModal :: confirmVehicle">...</div>
+    <div th:replace="pages/modal/productModal :: confirmProduct">...</div>
+    <div th:replace="pages/modal/clientModal :: confirmClient">...</div>
+    <div th:replace="pages/modal/supplierModal :: confirmSupplier">...</div>
+	<!-- Edit Modal HTML -->
+	<div th:replace="pages/modal/vehicleModal :: editVehicle">...</div>
+	<div th:replace="pages/modal/productModal :: editProduct">...</div>
+	<div th:replace="pages/modal/clientModal :: editClient">...</div>
+	<div th:replace="pages/modal/supplierModal :: editSupplier">...</div>
     <div th:replace="common/scripts :: scripts">...</div>
     <script type="text/javascript">
     $(document).ready(function() {
+    	
+    	$("#holder-type").on('change', function() {
+   			if($(this).val() == "client") {
+   				$(".client-row").show();
+   				$(".supplier-row").hide();
+   			} else if($(this).val() == "supplier") {
+   				$(".client-row").hide();
+   				$(".supplier-row").show();
+   			} else {
+   				$(".client-row").hide();
+   				$(".supplier-row").hide();
+   			}
+    	});
+    	
     	$("#vehicule").autocomplete({
-			source: "vehicle/search", 
+			source: "../api/vehicle/search", 
 			minLength: 2,
 			select: function(event, ui) {
 				this.value = ui.item.label;
-				//$("#vehicule").val(ui.item.value);
 				return false;
 			},
 			response: function(event, ui) {
 		        if (!ui.content.length) {
-		            var noResult = { value:"",label:"No results found" };
-		            ui.content.push(noResult);
+		            //var noResult = { value:"",label:"No results found" };
+		            //ui.content.push(noResult);
+		            $("#veh-confirm-modal").modal('show');
 		        }
 		    }
 		});
+    	
+    	$("#productName").autocomplete({
+			source: "../api/product/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.label;
+				$("productId").val(ui.item.value);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            $("#product-confirm-modal").modal('show');
+		        }
+		    }
+		});
+		
+		$("#clientName").autocomplete({
+			source: "../api/client/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.label;
+				$("clientId").val(ui.item.value);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            $("#client-confirm-modal").modal('show');
+		        }
+		    }
+		});
+		
+		$("#supplierName").autocomplete({
+			source: "../api/supplier/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.second;
+				$("supplierId").val(ui.item.first);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            $("#supplier-confirm-modal").modal('show');
+		        }
+		    }
+		});
+    	
+    	$("#ok-vehicle").on('click', function() {
+    		$("#veh-confirm-modal").modal('hide');
+    		$("#add-veh-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/vehicle/save", $("form#veh-modal-form").serialize(), function(data, status) {
+    						$("#vehicule").val($("#matricule").val());
+    						$("#add-veh-modal").modal('hide');
+    						
+    			});
+    		});
+    		$("#add-veh-modal").modal('show');
+    	});
+    	
+    	$("#ok-product").on('click', function() {
+    		$("#product-confirm-modal").modal('hide');
+    		$("#add-product-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/product/save", $("form#product-modal-form").serialize(), function(data, status) {
+    						$("#productName").val(data.name);
+    						$("#productId").val(data.id);
+    						$("#add-product-modal").modal('hide');
+    						
+    			});
+    		});
+    		$("#add-product-modal").modal('show');
+    	});
+    	
+    	$("#ok-client").on('click', function() {
+    		$("#client-confirm-modal").modal('hide');
+    		$("#add-client-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/client/save", $("form#client-modal-form").serialize(), function(data, status) {
+    						$("#clientName").val(data.name);
+    						$("#clientId").val(data.id);
+    						$("#add-client-modal").modal('hide');
+    						
+    			});
+    		});
+    		$("#add-client-modal").modal('show');
+    	});
+    	
+    	$("#ok-supplier").on('click', function() {
+    		$("#supplier-confirm-modal").modal('hide');
+    		$("#add-supplier-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/supplier/save", $("form#supplier-modal-form").serialize(), function(data, status) {
+    						$("#supplierName").val(data.name);
+    						$("#supplierId").val(data.id);
+    						$("#add-supplier-modal").modal('hide');
+    						
+    			});
+    		});
+    		$("#add-supplier-modal").modal('show');
+    	});
     });
     </script>
 </body>

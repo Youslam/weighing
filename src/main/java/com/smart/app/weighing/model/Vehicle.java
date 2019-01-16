@@ -35,4 +35,6 @@ public class Vehicle extends Auditable<String>{
 	@Column(name="maxload", nullable = true)
 	private double maxload;
 	
+	
+	
 }

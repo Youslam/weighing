@@ -26,7 +26,7 @@ public interface ProductService {
 	 * save or update a product
 	 * @param product
 	 */
-	void saveOrUpdate(Product product);
+	Product saveOrUpdate(Product product);
 	
 	/**
 	 * delete a specific product by id
@@ -46,4 +46,11 @@ public interface ProductService {
 	 * @return
 	 */
 	Page<Product> findAll(int page);
+
+	/**
+	 * Search products by name for auto completion
+	 * @param term
+	 * @return
+	 */
+	List<Product> searchProducts(String term);
 }

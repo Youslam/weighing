@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smart.app.weighing.model.Product;
 import com.smart.app.weighing.service.ProductService;
@@ -38,12 +37,5 @@ public class ProductController {
 	public String deleteProduct(long id) {
 		productService.deleteById(id);
 		return "redirect:/product/page";
-	}
-	
-	@GetMapping("/findOne")
-	@ResponseBody
-	public Product findOne(Long id) {
-		return productService.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid Product Id:" + id));
 	}
 }

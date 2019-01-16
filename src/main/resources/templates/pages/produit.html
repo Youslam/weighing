@@ -52,7 +52,7 @@
 								<td><span th:text="${product.name}"></span></td>
 								<td><span th:text="${product.type}"></span></td>
 								<td>
-									<a th:href="@{/product/findOne/(id=${product.id})}" class="edit eBtn" id="Edit">
+									<a th:href="@{/api/product/findOne/(id=${product.id})}" class="edit eBtn" id="Edit">
 										<i class="material-icons" data-toggle="tooltip" title="Modifier">&#xE254;</i>
 									</a>
 									<a th:href="@{/product/delete/(id=${product.id})}" class="delete dBtn">
@@ -66,55 +66,11 @@
 				</div>
 			</div>
 		</div>
-		<!-- Edit Modal HTML -->
-		<div id="umodal" class="modal fade" tabindex="-1" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form id="modal-form" action="#" th:action="@{/product/save}" th:method="post">
-						<div class="modal-header">						
-							<h4 class="modal-title" th:text="#{product.modal.edit.title}"></h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">	
-                            <input type="hidden" class="form-control" name="id" id="id" >	
-							<div class="form-group">
-								<label th:text="#{product.table.header.name}"></label>
-								<input type="text" class="form-control" name="name" id="name" required>
-							</div>
-							<div class="form-group">
-								<label th:text="#{product.table.header.type}"></label>
-								<input type="text" class="form-control" name="type" id="type" required>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-							<input type="submit" class="btn btn-info" value="Save">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!-- Delete Modal HTML -->
-		<div id="del-modal" class="modal modal-warning fade in">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form>
-						<div class="modal-header">						
-							<h4 class="modal-title" th:text="#{product.modal.delete.title}"></h4>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">					
-							<p th:text="product.modal.delete.confirm"></p>
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-							<a  class="btn btn-danger" href="" id="delBtn"><i class="fa fa-check"></i><span th:text="#{common.delete}"></span></a>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
 	</div>
+	<!-- Edit Modal HTML -->
+	<div th:replace="pages/modal/productModal :: editProduct">...</div>
+	<!-- Delete Modal HTML -->
+	<div th:replace="pages/modal/productModal :: deleteProduct">...</div>
 	<div th:replace="common/scripts :: scripts">...</div>
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
@@ -150,18 +106,18 @@
 	    	var id = $(this).attr("id");
 	    	if(id=="Edit") {		    		
 		    	$.get(href, function(data, status) {
-		    		$("#modal-form #id").val(data.id);
-		    		$("#modal-form #name").val(data.name);
-		    		$("#modal-form #type").val(data.type);
+		    		$("#product-modal-form #id").val(data.id);
+		    		$("#product-modal-form #name").val(data.name);
+		    		$("#product-modal-form #type").val(data.type);
 		    	});
 		    	
-		    	$("#umodal").modal();
+		    	$("#add-product-modal").modal();
 	    	} else {
-	    		$("#modal-form #id").val('');
-	    		$("#modal-form #name").val('');
-	    		$("#modal-form #type").val('');
+	    		$("#product-modal-form #id").val('');
+	    		$("#product-modal-form #name").val('');
+	    		$("#product-modal-form #type").val('');
 	    		
-	    		$("#umodal").modal();
+	    		$("#add-product-modal").modal();
 	    	}
 	    });
 	    
@@ -177,8 +133,8 @@
 				});
 	    		// TODO Must delete all selected ids
 	    	} else {
-		    	$("#del-modal #delBtn").attr("href", href);
-		    	$("#del-modal").modal();
+		    	$("#product-del-modal #delBtn").attr("href", href);
+		    	$("#product-del-modal").modal();
 	    	}
 	    });
 		});

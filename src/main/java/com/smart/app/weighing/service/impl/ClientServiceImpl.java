@@ -35,8 +35,8 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public void saveOrUpdate(Client client) {
-		clientRepository.save(client);
+	public Client saveOrUpdate(Client client) {
+		return clientRepository.save(client);
 	}
 
 	@Override
@@ -47,6 +47,11 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public void delete(Client client) {
 		clientRepository.delete(client);
+	}
+
+	@Override
+	public List<Client> searchClients(String term) {
+		return clientRepository.findByNameContaining(term);
 	}
 
 }

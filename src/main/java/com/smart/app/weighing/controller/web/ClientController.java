@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smart.app.weighing.model.Client;
 import com.smart.app.weighing.service.ClientService;
@@ -38,12 +37,5 @@ public class ClientController {
 	public String deleteClient(long id) {
 		clientService.deleteById(id);
 		return "redirect:/client/page";
-	}
-	
-	@GetMapping("/findOne")
-	@ResponseBody
-	public Client findOne(Long id) {
-		return clientService.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid Client Id:" + id));
 	}
 }

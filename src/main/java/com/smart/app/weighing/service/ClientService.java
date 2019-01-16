@@ -26,7 +26,7 @@ public interface ClientService {
 	 * save or update a client
 	 * @param client
 	 */
-	void saveOrUpdate(Client client);
+	Client saveOrUpdate(Client client);
 	
 	/**
 	 * delete a specific client by id
@@ -46,4 +46,11 @@ public interface ClientService {
 	 * @return
 	 */
 	Page<Client> findAll(int page);
+
+	/**
+	 * Search client by term name for auto completion
+	 * @param term
+	 * @return
+	 */
+	List<Client> searchClients(String term);
 }
