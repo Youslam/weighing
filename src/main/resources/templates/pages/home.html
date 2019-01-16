@@ -83,7 +83,7 @@
 		                                </div>
 		                                <div class="form-group">        
 			                                <div class="col-sm-offset-4 col-sm-8">
-			                                        <button type="submit" class="btn btn-success text-right"><span th:text="#{common.save}"></span></button>
+			                                        <button id="pesageSubmit" type="submit" class="btn btn-success text-right"><span th:text="#{common.save}"></span></button>
 			                                </div>
 		                                </div>
 		                            </form> <!-- /. form -->
@@ -211,7 +211,9 @@
         </div>
         <!-- /#page-wrapper -->
     </div>
-    
+    <!-- Modal for manual weighing -->
+    <div th:replace="pages/modal/homeModal :: manualModal1">...</div>
+    <div th:replace="pages/modal/homeModal :: manualModal2">...</div>
     <!-- Modal for confirmation-->
     <div th:replace="pages/modal/vehicleModal :: confirmVehicle">...</div>
     <div th:replace="pages/modal/productModal :: confirmProduct">...</div>
@@ -225,6 +227,50 @@
     <div th:replace="common/scripts :: scripts">...</div>
     <script type="text/javascript">
     $(document).ready(function() {
+    	
+    	$("#pesageSubmit").on('click', function(event) {
+    		event.preventDefault();
+    		var formData = $("#pesage-form").serialize();
+    		var brut1 = $(".brut1").text();
+    		var net1 = $(".net11").text();
+    		var tare1 = $(".tare1").text();
+    		if(brut1="0" || net1=="0") {
+    			alert("Veuillez saisir vos pesages");
+    		} 
+    		// TODO check required field from form
+    	});
+    	
+    	$("#weigh1-save").on('click', function(event) {
+    		event.preventDefault();
+    		var brut = $("#first-manual-modal #brut1").val();
+    		var net = $("#first-manual-modal #net1").val();
+    		var tare = brut - net;
+    		$(".brut1").text(brut);
+    		$(".net1").text(net);
+    		$(".tare1").text(tare);
+    		
+    		$("#first-manual-modal").modal('hide');
+    	});
+    	
+    	$("#weigh2-save").on('click', function(event) {
+    		event.preventDefault();
+    		var brut = $("#seconde-manual-modal #brut2").val();
+    		var net = $("#seconde-manual-modal #net2").val();
+    		var tare = brut - net;
+    		$(".brut2").text(brut);
+    		$(".net2").text(net);
+    		$(".tare2").text(tare);
+    		
+    		$("#seconde-manual-modal").modal('hide');
+    	});
+    	
+    	$(".manuel-pesage1").on('click', function() {
+    		$("#first-manual-modal").modal('show');
+    	});
+    	
+    	$(".manuel-pesage2").on('click', function() {
+    		$("#seconde-manual-modal").modal('show');
+    	});
     	
     	$("#holder-type").on('change', function() {
    			if($(this).val() == "client") {
