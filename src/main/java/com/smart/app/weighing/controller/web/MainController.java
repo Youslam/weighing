@@ -1,7 +1,5 @@
 package com.smart.app.weighing.controller.web;
 
-import java.util.Collections;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +37,4 @@ public class MainController {
     public String error403() {
         return "/error/403";
     }
-	
-	@GetMapping("/history/page")
-	public String historique(Model model) {
-		
-		model.addAttribute("histories", Collections.EMPTY_LIST);
-		model.addAttribute("actionName", "historique");
-		return "pages/historique";
-	}
 }

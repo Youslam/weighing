@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,17 +26,21 @@ public class User extends Auditable<String> {
 
 	private static final long serialVersionUID = -6347089557269064650L;
 
-	@Column(name = "login", nullable = false)
+	@NotNull
+	@Column(name = "login", unique=true, nullable = false)
 	private String login;
 	
 	@Column(name = "name", nullable = true)
 	private String name;
 	
+	@NotNull
 	@Column(name = "email", nullable = true)
 	private String email;
 	
+	@NotNull
 	@Column(name = "password", nullable = false)
 	private String password;
+	
 	@Transient
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)

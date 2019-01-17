@@ -14,6 +14,9 @@
 	.leg-pesage1, .leg-pesage2 {
 		margin-bottom: 10px;
 	}
+	form .error {
+	  color: #ff0000;
+	}
 	</style>
 </head>
 <body>
@@ -39,22 +42,23 @@
                 				<div class="col-lg-6">
 		                            <form id="pesage-form" role="form" class="form-horizontal">
 		                                <div class="form-group">
-		                                    <label class="control-label col-sm-4" for="vehicule" th:text="#{common.vehicle}"></label>
+		                                    <label class="control-label col-sm-4" for="vehMatricule" th:text="#{common.vehicle}"></label>
 		                                    <div class="col-sm-8">
-		                                        <input id="vehicule" name="matricule" class="form-control" th:placeholder="#{home.vehicle.placeholder}">
+		                                    	<input id="vehicle" name="vehicle" type="hidden">
+		                                        <input id="vehMatricule" class="form-control" th:placeholder="#{home.vehicle.placeholder}" th:data-error="#{home.matricule.error}">
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-sm-4" for="productName" th:text="#{common.product.name}"></label>
 		                                    <div class="col-sm-8">
 		                                    	<input id="productId" name="productId" type="hidden">
-		                                        <input id="productName" class="form-control" th:placeholder="#{home.product.name.placeholder}">
+		                                        <input id="productName" class="form-control" th:placeholder="#{home.product.name.placeholder}" th:data-error="#{home.product.error}">
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                 	<label class="control-label col-sm-4" for="holder-type" th:text="#{home.label.holder.type}"></label>
 		                                 	<div class="col-sm-8">
-												<select class="form-control" id="holder-type" name="holder-type">
+												<select class="form-control" id="holder-type">
 													<option value="" th:text="#{home.holder.type}"></option>
 													<option value="client" th:text="#{header.menu.client}"></option>
 													<option value="supplier" th:text="#{header.menu.supplier}"></option>
@@ -64,21 +68,23 @@
 		                                <div class="form-group client-row" style="display:none">
 		                                    <label class="control-label col-sm-4" for="clientName" th:text="#{common.client.name}"></label>
 		                                    <div class="col-sm-8">
-		                                    	<input id="clientId" name="clientId" type="hidden">
+		                                    	<input id="clientId" name="clientId" value="0" type="hidden">
 		                                        <input id="clientName" class="form-control" th:placeholder="#{home.client.name.placeholder}">
+		                                        <label id="clientName-error" class="error" for="clientName" th:text="#{home.client.error}"></label>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group supplier-row" style="display:none">
 		                                    <label class="control-label col-sm-4" for="clientName" th:text="#{common.supplier.name}"></label>
 		                                    <div class="col-sm-8">
-		                                    	<input id="supplierId" name="supplierId" type="hidden">
+		                                    	<input id="supplierId" name="supplierId" value="0" type="hidden">
 		                                        <input id="supplierName" class="form-control" th:placeholder="#{home.supplier.name.placeholder}">
+		                                        <label id="supplierName-error" class="error" for="supplierName" th:text="#{home.supplier.error}"></label>
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">
 		                                    <label class="control-label col-sm-4" for="numberBL" th:text="#{common.bl.numero}"></label>
 		                                    <div class="col-sm-8">
-		                                        <input id="numberBL" class="form-control" th:placeholder="#{home.bl.numero.placeholder}">
+		                                        <input id="numberBL" name="numberBL" class="form-control" th:placeholder="#{home.bl.numero.placeholder}" th:data-error="#{home.bl.error}">
 		                                    </div>
 		                                </div>
 		                                <div class="form-group">        
@@ -197,19 +203,21 @@
                                         </div>
                                     </div>
                                     </fieldset>
-                                </div>
-                                <!-- /.panel-body -->
-                            </div>
-                            <!-- /.panel -->
-                        </div>
-                        <!--./ col-lg-12-->
-                    </div>
-                    <!--./ row-->
-                </div>
-                <!-- /.col-lg-6 -->
+                                    <div id="alert-empty-pesage" class="alert alert-danger fade in" style="display:none;">
+									    <a href="#" class="close" data-dismiss="alert">&times;</a>
+									    <strong>Erreur!</strong> <span th:text="#{home.pesage.error}"></span>.
+									</div>
+                                </div> <!-- /.panel-body -->
+                            </div> <!-- /.panel -->
+                        </div> <!--./ col-lg-12-->
+                    </div> <!--./ row-->
+                </div> <!-- /.col-lg-6 -->
             </div>
-        </div>
-        <!-- /#page-wrapper -->
+        </div> <!-- /#page-wrapper -->
+        <div id="alert-error-pesage" class="alert alert-danger fade in" style="display:none;">
+		    <a href="#" class="close" data-dismiss="alert">&times;</a>
+		    <strong>Erreur!</strong> Erreur lors du sauvgarde du pesage.
+		</div>
     </div>
     <!-- Modal for manual weighing -->
     <div th:replace="pages/modal/homeModal :: manualModal1">...</div>
@@ -224,22 +232,55 @@
 	<div th:replace="pages/modal/productModal :: editProduct">...</div>
 	<div th:replace="pages/modal/clientModal :: editClient">...</div>
 	<div th:replace="pages/modal/supplierModal :: editSupplier">...</div>
+	<!-- i18n messages properties for js use -->
+	<div id="i18n-login" th:attr="data-txt-login=#{login.validation.login}"></div>
+   	<div id="i18n-password" th:attr="data-txt-password=#{login.validation.password}"></div>
+   	<div id="i18n-minlength" th:attr="data-txt-minlength=#{login.validation.minlength}"></div>
+    <!-- js scripts -->
     <div th:replace="common/scripts :: scripts">...</div>
     <script type="text/javascript">
     $(document).ready(function() {
     	
-    	$("#pesageSubmit").on('click', function(event) {
-    		event.preventDefault();
-    		var formData = $("#pesage-form").serialize();
-    		var brut1 = $(".brut1").text();
-    		var net1 = $(".net11").text();
-    		var tare1 = $(".tare1").text();
-    		if(brut1="0" || net1=="0") {
-    			alert("Veuillez saisir vos pesages");
-    		} 
-    		// TODO check required field from form
+    	var v = $("form#pesage-form").validate({
+    	    rules: {
+    	    	vehicle: "required",
+    	    	productId: "required",
+    	    	numberBL:"required"
+    	    },
+    	    messages: {
+    	    	vehicle: $("#vehMatricule").attr("data-error"),
+    	    	productId: $("#productName").attr("data-error"),
+    	      	numberBL: $("#numberBL").attr("data-error"),
+    	    },
+    	    submitHandler: function(form) {
+    	    	$("#alert-empty-pesage").hide();
+    	    	$("#alert-error-pesage").hide();
+    	    	var formData = $("#pesage-form").serialize();
+        		var brut1 = $(".brut1").text();
+        		var net1 = $(".net1").text();
+        		var tare1 = $(".tare1").text();
+        		var holderType=$("#holder-type").val();
+        		if(holderType == "supplier" && $("#supplierId").val() == "0") {
+        			$("#supplierName-error").show();
+        		} else if(holderType == "client" && $("#clientId").val() == "0") {
+        			$("#clientName-error").show();
+        		} else if(brut1=="0" || net1=="0") {
+        			$("#alert-empty-pesage").show();
+        		} else {
+        			formData = formData.concat("&firstBalanceBrut="+brut1+"&firstBalanceNet="+net1+"&firstBalanceTare="+tare1);
+        	    	formData = formData.concat("&secondeBalanceBrut="+$(".brut2").text()+"&secondeBalanceNet="+$(".net2").text()+"&secondeBalanceTare="+$(".tare2").text());
+        			$.post("/api/pesage/save", formData, function(data, status) {
+        				if(status=="success") {
+        					destroyFields();
+        					destroyForm();
+        				} else {
+        					$("#alert-error-pesage").show();
+        				}
+					});
+        		}
+    	    }
     	});
-    	
+    	v.resetForm();
     	$("#weigh1-save").on('click', function(event) {
     		event.preventDefault();
     		var brut = $("#first-manual-modal #brut1").val();
@@ -250,6 +291,7 @@
     		$(".tare1").text(tare);
     		
     		$("#first-manual-modal").modal('hide');
+    		$("#alert-empty-pesage").hide();
     	});
     	
     	$("#weigh2-save").on('click', function(event) {
@@ -262,6 +304,7 @@
     		$(".tare2").text(tare);
     		
     		$("#seconde-manual-modal").modal('hide');
+    		$("#alert-empty-pesage").hide();
     	});
     	
     	$(".manuel-pesage1").on('click', function() {
@@ -285,7 +328,7 @@
    			}
     	});
     	
-    	$("#vehicule").autocomplete({
+    	$("#vehMatricule").autocomplete({
 			source: "../api/vehicle/search", 
 			minLength: 2,
 			select: function(event, ui) {
@@ -306,7 +349,7 @@
 			minLength: 2,
 			select: function(event, ui) {
 				this.value = ui.item.label;
-				$("productId").val(ui.item.value);
+				$("#productId").val(ui.item.value);
 				return false;
 			},
 			response: function(event, ui) {
@@ -321,7 +364,7 @@
 			minLength: 2,
 			select: function(event, ui) {
 				this.value = ui.item.label;
-				$("clientId").val(ui.item.value);
+				$("#clientId").val(ui.item.value);
 				return false;
 			},
 			response: function(event, ui) {
@@ -336,7 +379,7 @@
 			minLength: 2,
 			select: function(event, ui) {
 				this.value = ui.item.second;
-				$("supplierId").val(ui.item.first);
+				$("#supplierId").val(ui.item.first);
 				return false;
 			},
 			response: function(event, ui) {
@@ -351,7 +394,7 @@
     		$("#add-veh-modal #submitButton").on('click', function(event) {
     			event.preventDefault();
     			$.post("/api/vehicle/save", $("form#veh-modal-form").serialize(), function(data, status) {
-    						$("#vehicule").val($("#matricule").val());
+    						$("#vehMatricule").val($("#matricule").val());
     						$("#add-veh-modal").modal('hide');
     						
     			});
@@ -395,12 +438,32 @@
     						$("#supplierName").val(data.name);
     						$("#supplierId").val(data.id);
     						$("#add-supplier-modal").modal('hide');
-    						
     			});
     		});
     		$("#add-supplier-modal").modal('show');
     	});
     });
+    
+    function destroyFields() {
+    	$(".brut1").text("0");
+    	$(".brut2").text("0");
+    	$(".net1").text("0");
+    	$(".net2").text("0");
+    	$(".tare1").text("0");
+    	$(".tare2").text("0");
+    }
+    
+    function destroyForm() {
+    	$("form#pesage-form #vehicle").val("");
+    	$("form#pesage-form #vehMatricule").val("");
+    	$("form#pesage-form #productName").val("");
+    	$("form#pesage-form #productId").val("");
+    	$("form#pesage-form #clientId").val("0");
+    	$("form#pesage-form #clientName").val("");
+    	$("form#pesage-form #supplierId").val("0");
+    	$("form#pesage-form #supplierName").val("");
+    	$("form#pesage-form #numberBL").val("");
+    }
     </script>
 </body>
 

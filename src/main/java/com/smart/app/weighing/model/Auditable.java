@@ -12,6 +12,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +21,10 @@ import lombok.Setter;
 @Setter(value = AccessLevel.PUBLIC)
 @Getter(value = AccessLevel.PUBLIC)
 @MappedSuperclass
+@JsonIgnoreProperties(
+        value = {"created_by", "createdDate", "last_modified_by", "last_modified_date"},
+        allowGetters = true
+)
 @EntityListeners(AuditingEntityListener.class)
 public class Auditable<U> extends Identifier {
 
@@ -29,7 +35,7 @@ public class Auditable<U> extends Identifier {
     private U createdBy;
 
     @CreatedDate
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     private Date createdDate;
 
     @LastModifiedBy

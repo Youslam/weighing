@@ -3,6 +3,7 @@ package com.smart.app.weighing.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -19,7 +20,8 @@ import lombok.ToString;
 public class Vehicle extends Auditable<String>{
 
 	private static final long serialVersionUID = 49023855177490480L;
-
+	
+	@NotNull
 	@Column(name = "matricule", unique = true, nullable = false)
 	private String matricule;
 	

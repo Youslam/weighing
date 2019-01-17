@@ -41,7 +41,12 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter  {
         		.antMatchers("/static/**","/webjars/**").permitAll()
         		.antMatchers("/registration").permitAll()
         		.antMatchers("/home/**").fullyAuthenticated()
-        		.antMatchers("/pages/**").fullyAuthenticated()
+        		.antMatchers("/vehicle/**").fullyAuthenticated()
+        		.antMatchers("/client/**").fullyAuthenticated()
+        		.antMatchers("/history/**").fullyAuthenticated()
+        		.antMatchers("/product/**").fullyAuthenticated()
+        		.antMatchers("/supplier/**").fullyAuthenticated()
+        		.antMatchers("/api/**").fullyAuthenticated()
             	.antMatchers("/").permitAll()
             	.and()
             .formLogin()
@@ -58,6 +63,7 @@ public class WebSecurityConfiguration  extends WebSecurityConfigurerAdapter  {
             	.invalidateHttpSession(true)
             	.deleteCookies("JSESSIONID")
             	.permitAll();
+        http.csrf().disable();
         
 	}
 	

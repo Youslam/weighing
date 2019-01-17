@@ -1,6 +1,5 @@
 package com.smart.app.weighing.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -17,25 +16,11 @@ import lombok.ToString;
 @Getter(value = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "supplier")
-public class Supplier extends Auditable<String> {
+public class Supplier extends ProductHolder {
 
 	private static final long serialVersionUID = 6188448428410086535L;
 
 	@Transient
 	private ProductHolderType type = ProductHolderType.SUPPLIER;
 	
-	@Column(name = "name", nullable = false)
-	private String name;
-	
-	@Column(name = "sector", nullable = true)
-	private String sector;
-	
-	@Column(name = "email", nullable = true)
-	private String email;
-	
-	@Column(name = "phone", nullable = true)
-	private String phone;
-	
-	@Column(name = "adress", nullable = true)
-	private String adress;
 }

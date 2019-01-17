@@ -3,6 +3,11 @@
 <head>
     <head th:replace="common/header :: head"></head>
 	<!-- Add additional custom css here -->
+	<style>
+	form .error {
+	  color: #ff0000;
+	}
+	</style>
 </head>
 
 <body>
@@ -25,13 +30,13 @@
 	                    </div>
                     </div>
                     <div class="panel-body">
-                        <form role="form" th:action="@{/login}" method="post">
+                        <form id="login-form" role="form" th:action="@{/login}" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" th:placeholder="#{login.username}" name="login" type="text" autofocus>
+                                    <input class="form-control" th:placeholder="#{login.username}" name="login" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" th:placeholder="#{login.password}" name="password" type="password" value="">
+                                    <input class="form-control" th:placeholder="#{login.password}" name="password" type="password">
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -47,7 +52,33 @@
             </div>
         </div>
     </div>
+   <div id="i18n-login" th:attr="data-txt-login=#{login.validation.login}"></div>
+   <div id="i18n-password" th:attr="data-txt-password=#{login.validation.password}"></div>
+   <div id="i18n-minlength" th:attr="data-txt-minlength=#{login.validation.minlength}"></div>
    <div th:replace="common/scripts :: scripts">...</div>
+   <script th:inline="javascript">
+   $(function() {
+	   $("form#login-form").validate({
+		   rules: {
+			   login: "required",      
+			   password: {
+				   required: true,
+				   minlength: 3
+			   }
+		   },
+		   messages: {
+			   login: $("#i18n-login").data("txt-login"),
+			   password: {
+				   required: $("#i18n-password").data("txt-password"),
+				   minlength: $("#i18n-minlength").data("txt-minlength")
+			   },
+		   },
+		   submitHandler: function(form) {
+		   		form.submit();
+		   }
+	   });
+   });
+   </script>
 </body>
 
 </html>
