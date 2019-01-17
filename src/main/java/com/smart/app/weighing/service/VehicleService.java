@@ -25,8 +25,9 @@ public interface VehicleService {
 	/**
 	 * save or update a vehicle
 	 * @param vehicle
+	 * @return 
 	 */
-	void saveOrUpdate(Vehicle vehicle);
+	Vehicle saveOrUpdate(Vehicle vehicle);
 	
 	/**
 	 * delete a specific vehicle by id

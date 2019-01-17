@@ -42,7 +42,7 @@ public class ProductApiController {
 		List<Product> productList = new ArrayList<>();
 		try {
 			// only update when term is three characters.
-			if (term.length() == 2) {
+			if (term.length() >= 2) {
 				productList.addAll(productService.searchProducts(term));
 			}
 			for(Product product: productList) {

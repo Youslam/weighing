@@ -333,6 +333,7 @@
 			minLength: 2,
 			select: function(event, ui) {
 				this.value = ui.item.label;
+				$("#vehicle").val(ui.item.value);
 				return false;
 			},
 			response: function(event, ui) {
@@ -394,7 +395,8 @@
     		$("#add-veh-modal #submitButton").on('click', function(event) {
     			event.preventDefault();
     			$.post("/api/vehicle/save", $("form#veh-modal-form").serialize(), function(data, status) {
-    						$("#vehMatricule").val($("#matricule").val());
+    						$("#vehicle").val(data.id);
+    						$("#vehMatricule").val(data.matricule);
     						$("#add-veh-modal").modal('hide');
     						
     			});

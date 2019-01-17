@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smart.app.weighing.model.Vehicle;
 import com.smart.app.weighing.service.VehicleService;
+import com.smart.app.weighing.utils.LabelValuePair;
 
 @RestController
 @RequestMapping("/api/vehicle")
@@ -25,8 +26,8 @@ public class VehicleApiController {
 	VehicleService vehicleService;
 
 	@PostMapping("/save")
-	public void save(Vehicle vehicle) {
-		vehicleService.saveOrUpdate(vehicle);
+	public Vehicle save(Vehicle vehicle) {
+		return vehicleService.saveOrUpdate(vehicle);
 	}
 	
 	@GetMapping("/findOne")
@@ -36,16 +37,17 @@ public class VehicleApiController {
 	}
 	
 	@RequestMapping(value="/search")
-	public List<String> plantNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term)  {
-		List<String> suggestions = new ArrayList<String>();
+	public List<LabelValuePair> plantNamesAutocomplete(@RequestParam(value="term", required = false, defaultValue="") String term)  {
+		List<LabelValuePair> suggestions = new ArrayList<>();
 		List<Vehicle> vehicleList = new ArrayList<>();
 		try {
 			// only update when term is three characters.
-			if (term.length() == 2) {
+			if (term.length() >= 2) {
 				vehicleList.addAll(vehicleService.searchVehicle(term));
 			}
 			for(Vehicle vehicle: vehicleList) {
-				suggestions.add(vehicle.getMatricule());
+				suggestions.add(new LabelValuePair(vehicle.getMatricule(), String.valueOf(vehicle.getId())));
+				
 			}
 			
 		} catch (Exception e) {
