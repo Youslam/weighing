@@ -36,17 +36,17 @@ public class Pesage extends Auditable<String> {
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="productId", nullable=false, updatable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	private Product productId;
+	private Product product;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="clientId", nullable=false, updatable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	private Client clientId;
+	private Client client;
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="supplierId", nullable=false, updatable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	private Supplier supplierId;
+	private Supplier supplier;
 	
 	@Column(name="numberBL", nullable=false, updatable=false)
 	private String numberBL;
