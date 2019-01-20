@@ -92,6 +92,14 @@
 			                                        <button id="pesageSubmit" type="submit" class="btn btn-success text-right"><span th:text="#{common.save}"></span></button>
 			                                </div>
 		                                </div>
+		                                 <div id="alert-error-pesage" class="alert alert-danger fade in" style="display:none;">
+										    <a href="#" class="close" data-dismiss="alert">&times;</a>
+										    <strong>Erreur!</strong> Erreur lors du sauvgarde du pesage.
+										</div>
+										<div id="alert-success-pesage" class="alert alert-success fade in" style="display:none;">
+										    <a href="#" class="close" data-dismiss="alert">&times;</a>
+										    <strong>Succès!</strong> Votre pesage a été bien enregistré.
+										</div>
 		                            </form> <!-- /. form -->
 	                         	</div>
                             	<div class="col-lg-6 col-md-6">
@@ -214,10 +222,6 @@
                 </div> <!-- /.col-lg-6 -->
             </div>
         </div> <!-- /#page-wrapper -->
-        <div id="alert-error-pesage" class="alert alert-danger fade in" style="display:none;">
-		    <a href="#" class="close" data-dismiss="alert">&times;</a>
-		    <strong>Erreur!</strong> Erreur lors du sauvgarde du pesage.
-		</div>
     </div>
     <!-- Modal for manual weighing -->
     <div th:replace="pages/modal/homeModal :: manualModal1">...</div>
@@ -255,6 +259,7 @@
     	    submitHandler: function(form) {
     	    	$("#alert-empty-pesage").hide();
     	    	$("#alert-error-pesage").hide();
+    	    	$("#alert-success-pesage").hide();
     	    	var formData = $("#pesage-form").serialize();
         		var brut1 = $(".brut1").text();
         		var net1 = $(".net1").text();
@@ -273,6 +278,7 @@
         				if(status=="success") {
         					destroyFields();
         					destroyForm();
+        					$("#alert-success-pesage").show();
         				} else {
         					$("#alert-error-pesage").show();
         				}

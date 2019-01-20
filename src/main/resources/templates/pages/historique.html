@@ -5,7 +5,7 @@
 	<!-- Add additional custom css here -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+<!-- 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"> -->
 	<style>
 	  .ui-autocomplete-loading {
 	    background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
@@ -40,14 +40,14 @@
 									</span>
 								</th>
 								<th th:text="#{vehicle.table.header.imm}"></th>
-								<th th:text="#{common.product.name}"></th>
-								<th th:text="#{history.table.holder.name}"></th>
-								<th th:text="#{history.table.holder.name}"></th>
-								<th th:text="#{history.table.holder.name}"></th>
-								<th th:text="#{history.table.holder.name}"></th>
-								<th th:text="#{history.table.holder.type}"></th>
-								<th th:text="#{history.table.weight.in}"></th>
-								<th th:text="#{history.table.weight.out}"></th>
+								<th th:text="#{history.table.product}"></th>
+								<th th:text="#{history.table.client}"></th>
+								<th th:text="#{history.table.supplier}"></th>
+								<th th:text="#{history.table.numberBl}"></th>
+								<th th:text="#{history.table.firstBalanceBrut}"></th>
+								<th th:text="#{history.table.firstBalanceNet}"></th>
+								<th th:text="#{history.table.secondeBalanceBrut}"></th>
+								<th th:text="#{history.table.secondeBalanceNet}"></th>
 								<th th:text="#{history.table.weight.datetime}"></th>
 								<th th:text="#{common.table.header.action}"></th>
 							</tr>
@@ -65,8 +65,8 @@
 								</td>
 					            <td><span th:text="${history.vehicle.matricule}"></span></td>
 					            <td><span th:text="${history.product.name}"></span></td>
-					            <td><span th:text="${history.client.name}"></span></td>
-					            <td><span th:text="${history.client.name}"></span></td>
+					            <td><span th:text="${history.client} != null ? ${history.client.name} : 'N/A'"></span></td>
+					            <td><span th:text="${history.supplier} != null ? ${history.supplier.name} : 'N/A'"></span></td>
 					            <td><span th:text="${history.numberBL}"></span></td>
 					            <td><span th:text="${history.firstBalanceBrut}"></span></td>
 					            <td><span th:text="${history.firstBalanceNet}"></span></td>
@@ -79,14 +79,18 @@
 					        </tr>
 					    </tbody>
 					</table>
+					<hr />
+					<ul class="nav nav-pills">
+						<li class="nav-item" th:each="i: ${#numbers.sequence(0, total-1)}">
+							<a th:href="@{./page(page=${i})}" th:text=${i} class="nav-link" th:classappend="${currentPage == i} ? 'active' : ''"></a>						
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- /#wrapper -->
   	<div th:replace="common/scripts :: scripts">...</div>
-	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		// Activate tooltip
@@ -111,7 +115,7 @@
 			}
 		});
 		
-	    $('#example').DataTable();
+	   // $('#example').DataTable();
 	    
 	});
 	</script>

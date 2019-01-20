@@ -648,3 +648,7 @@ table.table .avatar {
 .modal form label {
 	font-weight: normal;
 }
+#alert-error-pesage, #alert-success-pesage {
+	position: relative;
+	left: 50%;
+}
