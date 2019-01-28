@@ -1,4 +1,4 @@
-package com.smart.app.weighing.util;
+package com.smart.app.weighing.utils;
 
 public class Constants {
 	

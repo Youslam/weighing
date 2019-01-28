@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div id="add-veh-modal" class="modal fade" tabindex="-1" role="dialog" th:fragment="editVehicle">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="veh-modal-form" action="#" th:action="@{/vehicle/save}" th:method="post">
+				<div class="modal-header">						
+					<h4 class="modal-title" th:text="#{vehicle.modal.edit.title}"></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<input type="hidden" class="form-control" name="id" id="id" >
+					<div class="form-group">
+						<label th:text="#{vehicle.table.header.imm}"></label>
+						<input type="text" class="form-control" name="matricule" id="matricule" required >
+					</div>
+					<div class="form-group">
+						<label th:text="#{vehicle.table.header.type}"></label>
+						<select class="form-control" id="type" name="type" required>
+							<option value="camion">Camion</option>
+							<option value="vehicle">Véhicule</option>
+							<option value="mini-camion">Mini-camion</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label th:text="#{vehicle.table.header.brand}"></label>
+						<select class="form-control" name="brand" id="brand">
+							<option value="mercedes">Mercedes</option>
+							<option value="man">MAN</option>
+							<option value="volvo">Volvo</option>
+							<option value="renault">Renault</option>
+							<option value="scania">Scania</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label th:text="#{vehicle.table.header.model}"></label>
+						<input type="text" class="form-control" name="model" id="model">
+					</div>
+					<div class="form-group">
+						<label th:text="#{vehicle.table.header.maxload}"></label>
+						<input type="text" class="form-control" name="maxload" id="maxload" required >
+					</div>							
+				</div>					
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+					<input type="submit" id="submitButton" class="btn btn-info" th:value="#{common.save}">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="veh-del-modal" class="modal modal-warning fade in" th:fragment="deleteVehicle">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">						
+				<h4 class="modal-title" th:text="#{vehicle.modal.delete.title}"></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div class="modal-body">					
+				<p class="alert alert-danger" th:text="#{vehicle.modal.delete.confirm}"></p>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+				<a type="button" class="btn btn-danger" href="" id="delBtn"><i class="fa fa-check"></i><span th:text="#{common.delete}"></span></a>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="veh-confirm-modal" class="modal fade" role="dialog" th:fragment="confirmVehicle">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p th:text="#{home.modal.add.vehicle}"></p>
+      </div>
+      <div class="modal-footer">
+        <input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+		<input id="ok-vehicle" type="button" class="btn btn-info" th:value="#{common.ok}">
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

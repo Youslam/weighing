@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="common/header :: head"></head>
+	<!-- Add additional custom css here -->
+	<style>
+	.btn-pesage {
+	    float: right;
+    	margin: 0 5px 5px 5px;
+	}
+	#pesage-form .btn-success {
+ 		margin-top: 40px;
+	}
+	.leg-pesage1, .leg-pesage2 {
+		margin-bottom: 10px;
+	}
+	form .error {
+	  color: #ff0000;
+	}
+	</style>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <div th:replace="common/header :: top-navigation">...</div>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" th:text="#{home.header}"></h1>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <p th:text="#{home.panel.heading}"></p>
+                        </div>
+                        <div class="panel-body">
+                        	<div class="row">
+                				<div class="col-lg-6">
+		                            <form id="pesage-form" role="form" class="form-horizontal">
+		                                <div class="form-group">
+		                                    <label class="control-label col-sm-4" for="vehMatricule" th:text="#{common.vehicle}"></label>
+		                                    <div class="col-sm-8">
+		                                    	<input id="vehicle" name="vehicle" type="hidden">
+		                                        <input id="vehMatricule" class="form-control" th:placeholder="#{home.vehicle.placeholder}" th:data-error="#{home.matricule.error}">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-sm-4" for="productName" th:text="#{common.product.name}"></label>
+		                                    <div class="col-sm-8">
+		                                    	<input id="product" name="product" type="hidden">
+		                                        <input id="productName" class="form-control" th:placeholder="#{home.product.name.placeholder}" th:data-error="#{home.product.error}">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                 	<label class="control-label col-sm-4" for="holder-type" th:text="#{home.label.holder.type}"></label>
+		                                 	<div class="col-sm-8">
+												<select class="form-control" id="holder-type">
+													<option value="" th:text="#{home.holder.type}"></option>
+													<option value="client" th:text="#{header.menu.client}"></option>
+													<option value="supplier" th:text="#{header.menu.supplier}"></option>
+												</select>
+											</div>
+										</div>
+		                                <div class="form-group client-row" style="display:none">
+		                                    <label class="control-label col-sm-4" for="clientName" th:text="#{common.client.name}"></label>
+		                                    <div class="col-sm-8">
+		                                    	<input id="client" name="client" value="0" type="hidden">
+		                                        <input id="clientName" class="form-control" th:placeholder="#{home.client.name.placeholder}">
+		                                        <label id="clientName-error" class="error" for="clientName" th:text="#{home.client.error}"></label>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group supplier-row" style="display:none">
+		                                    <label class="control-label col-sm-4" for="clientName" th:text="#{common.supplier.name}"></label>
+		                                    <div class="col-sm-8">
+		                                    	<input id="supplier" name="supplier" value="0" type="hidden">
+		                                        <input id="supplierName" class="form-control" th:placeholder="#{home.supplier.name.placeholder}">
+		                                        <label id="supplierName-error" class="error" for="supplierName" th:text="#{home.supplier.error}"></label>
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">
+		                                    <label class="control-label col-sm-4" for="numberBL" th:text="#{common.bl.numero}"></label>
+		                                    <div class="col-sm-8">
+		                                        <input id="numberBL" name="numberBL" class="form-control" th:placeholder="#{home.bl.numero.placeholder}" th:data-error="#{home.bl.error}">
+		                                    </div>
+		                                </div>
+		                                <div class="form-group">        
+			                                <div class="col-sm-offset-4 col-sm-8">
+			                                        <button id="pesageSubmit" type="submit" class="btn btn-success text-right"><span th:text="#{common.save}"></span></button>
+			                                </div>
+		                                </div>
+		                                 <div id="alert-error-pesage" class="alert alert-danger fade in" style="display:none;">
+										    <a href="#" class="close" data-dismiss="alert">&times;</a>
+										    <strong>Erreur!</strong> Erreur lors du sauvgarde du pesage.
+										</div>
+										<div id="alert-success-pesage" class="alert alert-success fade in" style="display:none;">
+										    <a href="#" class="close" data-dismiss="alert">&times;</a>
+										    <strong>Succès!</strong> Votre pesage a été bien enregistré.
+										</div>
+		                            </form> <!-- /. form -->
+	                         	</div>
+                            	<div class="col-lg-6 col-md-6">
+                            	<fieldset class="fset-pesage1">
+                            		<legend class="leg-pesage1">
+                            			<span>Balance pesage 1</span>
+                                        <button type="button" class="btn btn-default auth-pesage1 btn-pesage">Automatique</button>
+                                        <button type="button" class="btn btn-default manuel-pesage1 btn-pesage">Manuelle</button>
+                            		</legend>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-balance-scale fa-3x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge brut1">0</div>
+                                                            <div>Brut (Kg)</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="panel panel-green" style="margin-bottom: 5px">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-balance-scale fa-3x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge tare1">0</div>
+                                                            <div>Tare (Kg)</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="panel panel-red" style="margin-bottom: 5px">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-balance-scale fa-3x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge net1">0</div>
+                                                            <div>Poids Net (Kg)</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /.row -->
+                                    </fieldset>
+                                    <fieldset class="fset-pesage2">
+                                    <legend class="leg-pesage2">
+                            			<span>Balance pesage 2</span>
+                                        <button type="button" class="btn btn-default auth-pesage2 btn-pesage">Automatique</button>
+                                        <button type="button" class="btn btn-default manuel-pesage2 btn-pesage">Manuelle</button>
+                            		</legend>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-balance-scale fa-3x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge brut2">0</div>
+                                                            <div>Brut (Kg)</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="panel panel-green">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-balance-scale fa-3x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge tare2">0</div>
+                                                            <div>Tare (Kg)</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="panel panel-red">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-balance-scale fa-3x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right">
+                                                            <div class="huge net2">0</div>
+                                                            <div>Poids Net (Kg)</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </fieldset>
+                                    <div id="alert-empty-pesage" class="alert alert-danger fade in" style="display:none;">
+									    <a href="#" class="close" data-dismiss="alert">&times;</a>
+									    <strong>Erreur!</strong> <span th:text="#{home.pesage.error}"></span>.
+									</div>
+                                </div> <!-- /.panel-body -->
+                            </div> <!-- /.panel -->
+                        </div> <!--./ col-lg-12-->
+                    </div> <!--./ row-->
+                </div> <!-- /.col-lg-6 -->
+            </div>
+        </div> <!-- /#page-wrapper -->
+    </div>
+    <!-- Modal for manual weighing -->
+    <div th:replace="pages/modal/homeModal :: manualModal1">...</div>
+    <div th:replace="pages/modal/homeModal :: manualModal2">...</div>
+    <!-- Modal for confirmation-->
+    <div th:replace="pages/modal/vehicleModal :: confirmVehicle">...</div>
+    <div th:replace="pages/modal/productModal :: confirmProduct">...</div>
+    <div th:replace="pages/modal/clientModal :: confirmClient">...</div>
+    <div th:replace="pages/modal/supplierModal :: confirmSupplier">...</div>
+	<!-- Edit Modal HTML -->
+	<div th:replace="pages/modal/vehicleModal :: editVehicle">...</div>
+	<div th:replace="pages/modal/productModal :: editProduct">...</div>
+	<div th:replace="pages/modal/clientModal :: editClient">...</div>
+	<div th:replace="pages/modal/supplierModal :: editSupplier">...</div>
+	<!-- i18n messages properties for js use -->
+	<div id="i18n-login" th:attr="data-txt-login=#{login.validation.login}"></div>
+   	<div id="i18n-password" th:attr="data-txt-password=#{login.validation.password}"></div>
+   	<div id="i18n-minlength" th:attr="data-txt-minlength=#{login.validation.minlength}"></div>
+    <!-- js scripts -->
+    <div th:replace="common/scripts :: scripts">...</div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	
+    	var v = $("form#pesage-form").validate({
+    	    rules: {
+    	    	vehicle: "required",
+    	    	product: "required",
+    	    	numberBL:"required"
+    	    },
+    	    messages: {
+    	    	vehicle: $("#vehMatricule").attr("data-error"),
+    	    	product: $("#productName").attr("data-error"),
+    	      	numberBL: $("#numberBL").attr("data-error"),
+    	    },
+    	    submitHandler: function(form) {
+    	    	$("#alert-empty-pesage").hide();
+    	    	$("#alert-error-pesage").hide();
+    	    	$("#alert-success-pesage").hide();
+    	    	var formData = $("#pesage-form").serialize();
+        		var brut1 = $(".brut1").text();
+        		var net1 = $(".net1").text();
+        		var tare1 = $(".tare1").text();
+        		var holderType=$("#holder-type").val();
+        		if(holderType == "supplier" && $("#supplier").val() == "0") {
+        			$("#supplierName-error").show();
+        		} else if(holderType == "client" && $("#client").val() == "0") {
+        			$("#clientName-error").show();
+        		} else if(brut1=="0" || net1=="0") {
+        			$("#alert-empty-pesage").show();
+        		} else {
+        			formData = formData.concat("&firstBalanceBrut="+brut1+"&firstBalanceNet="+net1+"&firstBalanceTare="+tare1);
+        	    	formData = formData.concat("&secondeBalanceBrut="+$(".brut2").text()+"&secondeBalanceNet="+$(".net2").text()+"&secondeBalanceTare="+$(".tare2").text());
+        			$.post("/api/pesage/save", formData, function(data, status) {
+        				if(status=="success") {
+        					destroyFields();
+        					destroyForm();
+        					$("#alert-success-pesage").show();
+        				} else {
+        					$("#alert-error-pesage").show();
+        				}
+					});
+        		}
+    	    }
+    	});
+    	v.resetForm();
+    	$("#weigh1-save").on('click', function(event) {
+    		event.preventDefault();
+    		var brut = $("#first-manual-modal #brut1").val();
+    		var net = $("#first-manual-modal #net1").val();
+    		var tare = brut - net;
+    		$(".brut1").text(brut);
+    		$(".net1").text(net);
+    		$(".tare1").text(tare);
+    		
+    		$("#first-manual-modal").modal('hide');
+    		$("#alert-empty-pesage").hide();
+    	});
+    	
+    	$("#weigh2-save").on('click', function(event) {
+    		event.preventDefault();
+    		var brut = $("#seconde-manual-modal #brut2").val();
+    		var net = $("#seconde-manual-modal #net2").val();
+    		var tare = brut - net;
+    		$(".brut2").text(brut);
+    		$(".net2").text(net);
+    		$(".tare2").text(tare);
+    		
+    		$("#seconde-manual-modal").modal('hide');
+    		$("#alert-empty-pesage").hide();
+    	});
+    	
+    	$(".manuel-pesage1").on('click', function() {
+    		$("#first-manual-modal").modal('show');
+    	});
+    	
+    	$(".manuel-pesage2").on('click', function() {
+    		$("#seconde-manual-modal").modal('show');
+    	});
+    	
+    	$("#holder-type").on('change', function() {
+   			if($(this).val() == "client") {
+   				$(".client-row").show();
+   				$(".supplier-row").hide();
+   			} else if($(this).val() == "supplier") {
+   				$(".client-row").hide();
+   				$(".supplier-row").show();
+   			} else {
+   				$(".client-row").hide();
+   				$(".supplier-row").hide();
+   			}
+    	});
+    	
+    	$("#vehMatricule").autocomplete({
+			source: "../api/vehicle/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.label;
+				$("#vehicle").val(ui.item.value);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            //var noResult = { value:"",label:"No results found" };
+		            //ui.content.push(noResult);
+		            $("#veh-confirm-modal").modal('show');
+		        }
+		    }
+		});
+    	
+    	$("#productName").autocomplete({
+			source: "../api/product/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.label;
+				$("#product").val(ui.item.value);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            $("#product-confirm-modal").modal('show');
+		        }
+		    }
+		});
+		
+		$("#clientName").autocomplete({
+			source: "../api/client/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.label;
+				$("#client").val(ui.item.value);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            $("#client-confirm-modal").modal('show');
+		        }
+		    }
+		});
+		
+		$("#supplierName").autocomplete({
+			source: "../api/supplier/search", 
+			minLength: 2,
+			select: function(event, ui) {
+				this.value = ui.item.label;
+				$("#supplier").val(ui.item.value);
+				return false;
+			},
+			response: function(event, ui) {
+		        if (!ui.content.length) {
+		            $("#supplier-confirm-modal").modal('show');
+		        }
+		    }
+		});
+    	
+    	$("#ok-vehicle").on('click', function() {
+    		$("#veh-confirm-modal").modal('hide');
+    		$("#add-veh-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/vehicle/save", $("form#veh-modal-form").serialize(), function(data, status) {
+    						$("#vehicle").val(data.id);
+    						$("#vehMatricule").val(data.matricule);
+    						$("#add-veh-modal").modal('hide');
+    						
+    			});
+    		});
+    		$("#add-veh-modal").modal('show');
+    	});
+    	
+    	$("#ok-product").on('click', function() {
+    		$("#product-confirm-modal").modal('hide');
+    		$("#add-product-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/product/save", $("form#product-modal-form").serialize(), function(data, status) {
+    						$("#productName").val(data.name);
+    						$("#product").val(data.id);
+    						$("#add-product-modal").modal('hide');
+    						
+    			});
+    		});
+    		$("#add-product-modal").modal('show');
+    	});
+    	
+    	$("#ok-client").on('click', function() {
+    		$("#client-confirm-modal").modal('hide');
+    		$("#add-client-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/client/save", $("form#client-modal-form").serialize(), function(data, status) {
+    						$("#clientName").val(data.name);
+    						$("#client").val(data.id);
+    						$("#add-client-modal").modal('hide');
+    						
+    			});
+    		});
+    		$("#add-client-modal").modal('show');
+    	});
+    	
+    	$("#ok-supplier").on('click', function() {
+    		$("#supplier-confirm-modal").modal('hide');
+    		$("#add-supplier-modal #submitButton").on('click', function(event) {
+    			event.preventDefault();
+    			$.post("/api/supplier/save", $("form#supplier-modal-form").serialize(), function(data, status) {
+    						$("#supplierName").val(data.name);
+    						$("#supplier").val(data.id);
+    						$("#add-supplier-modal").modal('hide');
+    			});
+    		});
+    		$("#add-supplier-modal").modal('show');
+    	});
+    });
+    
+    function destroyFields() {
+    	$(".brut1").text("0");
+    	$(".brut2").text("0");
+    	$(".net1").text("0");
+    	$(".net2").text("0");
+    	$(".tare1").text("0");
+    	$(".tare2").text("0");
+    }
+    
+    function destroyForm() {
+    	$("form#pesage-form #vehicle").val("");
+    	$("form#pesage-form #vehMatricule").val("");
+    	$("form#pesage-form #productName").val("");
+    	$("form#pesage-form #product").val("");
+    	$("form#pesage-form #client").val("0");
+    	$("form#pesage-form #clientName").val("");
+    	$("form#pesage-form #supplier").val("0");
+    	$("form#pesage-form #supplierName").val("");
+    	$("form#pesage-form #numberBL").val("");
+    }
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-package com.smart.app.weighing.util;
+package com.smart.app.weighing.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
