@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div id="first-manual-modal" class="modal fade" role="dialog" th:fragment="manualModal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h4 class="modal-title" th:text="#{home.pesage.header1}"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+			<label th:text="#{home.pesage.brut}"></label>
+			<input type="text" class="form-control" name="brut1" id="brut1" required>
+		</div>
+		<div class="form-group">
+			<label th:text="#{home.pesage.net}"></label>
+			<input type="text" class="form-control" name="net1" id="net1" required>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+		<input id="weigh1-save" type="button" class="btn btn-info" th:value="#{common.save}">
+      </div>
+    </div>
+  </div>
+</div>
+<div id="seconde-manual-modal" class="modal fade" role="dialog" th:fragment="manualModal2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h4 class="modal-title" th:text="#{home.pesage.header2}"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+			<label th:text="#{home.pesage.brut}"></label>
+			<input type="text" class="form-control" name="brut2" id="brut2" required>
+		</div>
+		<div class="form-group">
+			<label th:text="#{home.pesage.net}"></label>
+			<input type="text" class="form-control" name="net2" id="net2" required>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{common.cancel}">
+		<input id="weigh2-save" type="button" class="btn btn-info" th:value="#{common.save}">
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.smart.app.weighing.config;
+package com.smart.app.weighing.auth.config;
 
 import java.io.IOException;
 
@@ -42,11 +42,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	private String determineTargetUrl(Authentication authentication) {
 		
 		if(authentication.isAuthenticated()) {
-			return "/admin/";
-		} else {
-			return "/login?error";
+			return "/home/";
 		}
-		
+		return "/login?error";
 	}
 	
 	/**
