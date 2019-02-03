@@ -12,8 +12,8 @@ import com.smart.app.weighing.model.Vehicle;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
-	@Query("SELECT matricule FROM Vehicle WHERE matricule LIKE '%' || :term || '%'")
-	public List<String> searchVehicle(@Param("term") String term);
+	@Query("SELECT v FROM Vehicle v WHERE v.matricule LIKE '%' || :term || '%'")
+	public List<Vehicle> searchVehicleByMatricule(@Param("term") String term);
 	
 	List<Vehicle> findByMatriculeContaining(String matricule);
 }

@@ -1,5 +1,7 @@
 package com.smart.app.weighing.controller.web;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smart.app.weighing.model.Pesage;
 import com.smart.app.weighing.service.PesageService;
+import com.smart.app.weighing.service.VehicleService;
 
 @Controller
 @RequestMapping("/history")
@@ -23,6 +26,9 @@ public class PesageController {
 	
 	@Autowired
 	PesageService pesageService;
+	
+	@Autowired
+	VehicleService vehicleService;
 	
 	@GetMapping("/page")
 	public String findAll(Model model, @RequestParam(defaultValue="0") int page) {
@@ -36,5 +42,15 @@ public class PesageController {
 	
 	private Sort orderByDateDesc() {
 		return new Sort(Sort.Direction.DESC, "dateTime");
+	}
+	
+	@GetMapping("/search")
+	public String searchHistory(Model model, @RequestParam("filter") String filter, @RequestParam("term") String term) {
+		List<Pesage> historyList =  pesageService.searchPesageByTerm(filter, term);
+		model.addAttribute("histories", historyList);
+		model.addAttribute("actionName", "historique");
+		model.addAttribute("total", 1);
+		model.addAttribute("currentPage", 0);
+		return "pages/historique";
 	}
 }

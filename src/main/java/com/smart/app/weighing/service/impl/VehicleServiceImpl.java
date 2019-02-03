@@ -50,11 +50,6 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 	
 	@Override
-	public List<String> searchMatricule(String term) {
-		return vehicleRepository.searchVehicle(term);
-	}
-	
-	@Override
 	public List<Vehicle> searchVehicle(String term) {
 		return vehicleRepository.findByMatriculeContaining(term);
 	}

@@ -30,4 +30,13 @@ public interface PesageService {
 	 * @return
 	 */
 	Page<Pesage> findAll(Pageable pageable);
+
+	/**
+	 * Search pesage by term
+	 * 
+	 * @param filter
+	 * @param term
+	 * @return
+	 */
+	List<Pesage> searchPesageByTerm(String filter, String term);
 }

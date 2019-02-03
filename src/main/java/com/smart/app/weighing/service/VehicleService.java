@@ -53,7 +53,5 @@ public interface VehicleService {
 	 * @param term
 	 * @return
 	 */
-	List<String> searchMatricule(String term);
-
 	List<Vehicle> searchVehicle(String term);
 }

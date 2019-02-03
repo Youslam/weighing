@@ -12,6 +12,7 @@
 	<artifactId>weighing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>weighing</name>
+	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	
 	<scm>
@@ -51,7 +52,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
