@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
     
     <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" type="text/css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css">
@@ -44,7 +45,7 @@
                         <li><a href="#"><i class="fa fa-user fa-fw"></i><span th:text="#{header.user.profile}"></span></a></li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i><span th:text="#{header.settings}"></span></a></li>
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i><span th:text="#{header.logout}"></span></a></li>
+                        <li><a href="../logout"><i class="fa fa-sign-out fa-fw"></i><span th:text="#{header.logout}"></span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -53,13 +54,13 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li th:class="${actionName == 'home'} ? 'active' : ''" >
-                            <a href="../home/page"><i class="fa fa-dashboard fa-fw"></i><span th:text="#{header.menu.home}"></span></a>
+                            <a href="../home/page"><i class="fa fa-wpforms fa-fw"></i><span th:text="#{header.menu.home}"></span></a>
                         </li>
 						 <li th:class="${actionName == 'historique'} ? 'active' : ''" >
-                            <a href="../history/page"><i class="fa fa-bar-chart-o fa-fw"></i> <span th:text="#{header.menu.history}"></span></a>
+                            <a href="../history/page"><i class="fa fa-history fa-fw"></i> <span th:text="#{header.menu.history}"></span></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i><span th:text="#{header.menu.ref}"></span><span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-database fa-fw"></i><span th:text="#{header.menu.ref}"></span><span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li th:class="${actionName == 'vehicules'} ? 'active' : ''" >
                                     <a href="../vehicle/page"><span th:text="#{header.menu.vehicle}"></span></a>

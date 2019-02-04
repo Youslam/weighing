@@ -31,7 +31,7 @@ public class Auditable<U> extends Identifier {
 	private static final long serialVersionUID = 6985483892065585553L;
 
 	@CreatedBy
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false)
     private U createdBy;
 
     @CreatedDate
