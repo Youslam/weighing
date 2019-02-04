@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.smart.app.weighing.dao.ClientRepository;
 import com.smart.app.weighing.dao.PesageRepository;
@@ -22,6 +23,7 @@ import com.smart.app.weighing.model.Vehicle;
 import com.smart.app.weighing.service.PesageService;
 
 @Service
+@Transactional
 public class PesageServiceImpl implements PesageService {
 
 	@Autowired

@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.smart.app.weighing.dao.ProductRepository;
 import com.smart.app.weighing.model.Product;
 import com.smart.app.weighing.service.ProductService;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
 	private static final Integer PAGE_SIZE = 5;
