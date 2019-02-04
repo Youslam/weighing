@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.smart.app.weighing.dao.VehicleRepository;
 import com.smart.app.weighing.model.Vehicle;
 import com.smart.app.weighing.service.VehicleService;
 
 @Service
+@Transactional
 public class VehicleServiceImpl implements VehicleService {
 
 	private static final Integer PAGE_SIZE = 5;
@@ -47,11 +49,6 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public void delete(Vehicle vehicle) {
 		vehicleRepository.delete(vehicle);
-	}
-	
-	@Override
-	public List<String> searchMatricule(String term) {
-		return vehicleRepository.searchVehicle(term);
 	}
 	
 	@Override

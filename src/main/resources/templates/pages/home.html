@@ -274,7 +274,7 @@
         		} else {
         			formData = formData.concat("&firstBalanceBrut="+brut1+"&firstBalanceNet="+net1+"&firstBalanceTare="+tare1);
         	    	formData = formData.concat("&secondeBalanceBrut="+$(".brut2").text()+"&secondeBalanceNet="+$(".net2").text()+"&secondeBalanceTare="+$(".tare2").text());
-        			$.post("/api/pesage/save", formData, function(data, status) {
+        			$.post("../api/pesage/save", formData, function(data, status) {
         				if(status=="success") {
         					destroyFields();
         					destroyForm();
@@ -315,6 +315,18 @@
     	
     	$(".manuel-pesage1").on('click', function() {
     		$("#first-manual-modal").modal('show');
+    	});
+    	
+    	$(".auth-pesage1").on('click', function() {
+    		$(".brut1").text("1400");
+    		$(".net1").text("1000");
+    		$(".tare1").text("400");
+    	});
+    	
+    	$(".auth-pesage2").on('click', function() {
+    		$(".brut2").text("2600");
+    		$(".net2").text("1800");
+    		$(".tare2").text("800");
     	});
     	
     	$(".manuel-pesage2").on('click', function() {
@@ -400,7 +412,7 @@
     		$("#veh-confirm-modal").modal('hide');
     		$("#add-veh-modal #submitButton").on('click', function(event) {
     			event.preventDefault();
-    			$.post("/api/vehicle/save", $("form#veh-modal-form").serialize(), function(data, status) {
+    			$.post("../api/vehicle/save", $("form#veh-modal-form").serialize(), function(data, status) {
     						$("#vehicle").val(data.id);
     						$("#vehMatricule").val(data.matricule);
     						$("#add-veh-modal").modal('hide');
@@ -414,7 +426,7 @@
     		$("#product-confirm-modal").modal('hide');
     		$("#add-product-modal #submitButton").on('click', function(event) {
     			event.preventDefault();
-    			$.post("/api/product/save", $("form#product-modal-form").serialize(), function(data, status) {
+    			$.post("../api/product/save", $("form#product-modal-form").serialize(), function(data, status) {
     						$("#productName").val(data.name);
     						$("#product").val(data.id);
     						$("#add-product-modal").modal('hide');
@@ -428,7 +440,7 @@
     		$("#client-confirm-modal").modal('hide');
     		$("#add-client-modal #submitButton").on('click', function(event) {
     			event.preventDefault();
-    			$.post("/api/client/save", $("form#client-modal-form").serialize(), function(data, status) {
+    			$.post("../api/client/save", $("form#client-modal-form").serialize(), function(data, status) {
     						$("#clientName").val(data.name);
     						$("#client").val(data.id);
     						$("#add-client-modal").modal('hide');
@@ -442,7 +454,7 @@
     		$("#supplier-confirm-modal").modal('hide');
     		$("#add-supplier-modal #submitButton").on('click', function(event) {
     			event.preventDefault();
-    			$.post("/api/supplier/save", $("form#supplier-modal-form").serialize(), function(data, status) {
+    			$.post("../api/supplier/save", $("form#supplier-modal-form").serialize(), function(data, status) {
     						$("#supplierName").val(data.name);
     						$("#supplier").val(data.id);
     						$("#add-supplier-modal").modal('hide');

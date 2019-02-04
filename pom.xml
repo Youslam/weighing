@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.smart.app</groupId>
-	<artifactId>weighing</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>weighing</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>pesage</artifactId>
+	<version>0.0.1</version>
+	<name>Pesage</name>
+	<packaging>war</packaging>
+	<description>Application de gestion de pesage</description>
 	
 	<scm>
 		<connection>scm:git:https://github.com/Youslam/weighing.git</connection>
@@ -28,6 +28,8 @@
 		<jquery.version>3.1.0</jquery.version>
 		<bootstrap.version>3.3.7</bootstrap.version>
 		<lombok.version>1.16.20</lombok.version>
+		<flying.version>9.1.4</flying.version>
+		<poi.version>3.17</poi.version>
 	</properties>
 
 	<dependencies>
@@ -47,11 +49,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- flying saucer pdf -->  
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>${flying.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -71,7 +83,7 @@
 		<dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+            <version>${lombok.version}</version><!--$NO-MVN-MAN-VER$-->
             <scope>provided</scope>
         </dependency>
 		
@@ -87,6 +99,11 @@
 			<scope>runtime</scope>
 		</dependency>
 		
+		<dependency>
+		    <groupId>javax.interceptor</groupId>
+		    <artifactId>javax.interceptor-api</artifactId>
+		    <version>1.2</version>
+		</dependency>
 		<!-- <dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
@@ -128,6 +145,7 @@
 				<artifactId>jgitflow-maven-plugin</artifactId>
 				<version>1.0-m5.1</version>
 				<configuration>
+					<noDeploy>true</noDeploy>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<pushFeatures>true</pushFeatures>
 					<pushReleases>true</pushReleases>
