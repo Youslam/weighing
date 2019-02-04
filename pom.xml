@@ -10,9 +10,10 @@
 	</parent>
 	<groupId>com.smart.app</groupId>
 	<artifactId>pesage</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>Pesage</name>
 	<packaging>war</packaging>
-	<description>Demo project for Spring Boot</description>
+	<description>Application de gestion de pesage</description>
 	
 	<scm>
 		<connection>scm:git:https://github.com/Youslam/weighing.git</connection>
