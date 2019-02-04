@@ -2,6 +2,7 @@ package com.smart.app.weighing.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -72,5 +73,14 @@ public class PesageServiceImpl implements PesageService {
 		}
 		
 		return pesage;
+	}
+
+	@Override
+	public Pesage findById(Long id) {
+		Optional<Pesage> pesage = pesageRepository.findById(id);
+		if(pesage.isPresent()) {
+			return pesage.get();
+		}
+		return null;
 	}
 }

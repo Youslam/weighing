@@ -102,7 +102,7 @@
 					            <td><span th:text="${history.secondeBalanceNet}"></span></td>
 					            <td><span th:text="${history.dateTime}"></span></td>
 					            <td>
-									<a href="#editEmployeeModal" class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Imprimer un ticket">print</i></a>
+									<a th:href="@{../api/pesage/download/pdf(id=${history.id})}" class="add" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Imprimer un ticket">print</i></a>
 								</td>
 					        </tr>
 					    </tbody>

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style type="text/css">
+@page { size: A5 landscape;}
+</style>
+</head>
+<body>
+    <p th:text="'Vehicle: ' + ${vehicle}" />
+    <p th:text="'Produit ' + ${product}" />
+    <p th:text="'Porteur du produit: ' + ${holder}" />
+    <p th:text="'Numero BL: ' + ${numberBL}" />
+    <p th:text="'Poid Brut: ' + ${balanceBrut}" />
+    <p th:text="'Poid Net: ' + ${balanceNet}" />
+    <p th:text="'Date: ' + ${datetime}" />
+    
+</body>
+</html>

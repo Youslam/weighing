@@ -29,6 +29,8 @@
 		<jquery.version>3.1.0</jquery.version>
 		<bootstrap.version>3.3.7</bootstrap.version>
 		<lombok.version>1.16.20</lombok.version>
+		<flying.version>9.1.4</flying.version>
+		<poi.version>3.17</poi.version>
 	</properties>
 
 	<dependencies>
@@ -48,6 +50,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- flying saucer pdf -->  
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>${flying.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -55,7 +63,7 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.17</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -76,7 +84,7 @@
 		<dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+            <version>${lombok.version}</version><!--$NO-MVN-MAN-VER$-->
             <scope>provided</scope>
         </dependency>
 		

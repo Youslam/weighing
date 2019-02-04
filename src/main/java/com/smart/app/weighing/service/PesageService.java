@@ -39,4 +39,12 @@ public interface PesageService {
 	 * @return
 	 */
 	List<Pesage> searchPesageByTerm(String filter, String term);
+
+	/**
+	 * Find history by Id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Pesage findById(Long id);
 }
