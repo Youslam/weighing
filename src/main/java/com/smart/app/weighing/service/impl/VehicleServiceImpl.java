@@ -3,6 +3,8 @@ package com.smart.app.weighing.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +15,7 @@ import com.smart.app.weighing.model.Vehicle;
 import com.smart.app.weighing.service.VehicleService;
 
 @Service
+@Transactional
 public class VehicleServiceImpl implements VehicleService {
 
 	private static final Integer PAGE_SIZE = 5;
